@@ -1,3 +1,3 @@
-# Test Bench
+# Controller
 
-This here is our test bench all of the new features are tested here before publishing in main.
+In this section the controller is designed
