@@ -17,17 +17,17 @@ It is designed by [Amir](https://github.com/Amirht84) and [Anita]() as a school 
 - **test:**
   used for testing new features before merging to main
 - **paper-design:**
-  shematic designs of the hardware in .jpg files
+  schematic designs of the hardware in .jpg files
 - **elements:**
   verilog codes of the most low level modules of this project like ALU, Regfile, etc.
 - **controller:**
-  contains verilog codes of data path
+  contains verilog codes of controller
 - **data-path:**
   contains verilog codes of data path
 
 ## Single-Cycle Micro-Arch
 
-### implemented instructions:
+### Implemented Instructions:
 
 - **R-Type:**
   `add`, `sub`, `and`, `or`, `slt`
