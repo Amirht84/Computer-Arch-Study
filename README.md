@@ -22,11 +22,14 @@ It contains the 32 registers of RISC-V32.
 
 ### ALU
 
-Arithmatic Logic Unit of then hardware; Has 5 functions as the table below:
-| Func | Operation |
-|--------|-----|
-| `000` | `A + B` |
-| `001` | `A - B` |
-| `010` | `A & B` |
-| `011` | `A \| B` |
-| `101` | `A < B` |
+Arithmatic Logic Unit of the hardware; Has 5 functions such the table below:
+
+| Func  | Operation |
+| ----- | --------- |
+| `000` | `A + B`   |
+| `001` | `A - B`   |
+| `010` | `A & B`   |
+| `011` | `A \| B`  |
+| `101` | `A < B`   |
+
+---
