@@ -1,3 +1,3 @@
-# Controller
+# Paper Design
 
-In this section the controller is designed
+First of all, we put every thing on paper; this branch contains paper documents for all of the modules used in the project.
