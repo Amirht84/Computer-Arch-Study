@@ -1,7 +1,0 @@
-﻿type,7bit,5bit,5bit,3bit,5bit,7bit
-R,func7,rs2,rs1,func3,rd,op
-I,imm[11:0],,rs1,func3,rd,op
-S,imm[11:5],rs2,rs1,func3,imm[4:0],op
-B,"imm{12, [10:5]}",rs2,rs1,func3,"imm{[4:1], 11}",op
-U,imm[19:0],,,,rd,op
-J,"imm{20, [10:1], 11, [19:12]}",,,,rd,op
