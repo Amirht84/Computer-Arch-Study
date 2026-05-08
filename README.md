@@ -6,7 +6,7 @@ We are going to implement [Single-cycle](#single-cycle-micro-arch), [Multi-cycle
 
 ## Contributors
 
-It is designed by [Amir](https://github.com/Amirht84) and [Anita]() as a school project in University of Tehran.
+It is designed by [Amir](https://github.com/Amirht84) and [Anita](https://github.com/AnitaEngUT) as a school project in University of Tehran.
 
 ## Project Structure
 
