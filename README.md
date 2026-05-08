@@ -14,16 +14,18 @@ It is designed by [Amir](https://github.com/Amirht84) and [Anita]() as a school 
 
 - [**main:**](https://github.com/Amirht84/Computer-Arch-Study)
   contains the final work
-- **test:**
+- [**test:**](https://github.com/Amirht84/Computer-Arch-Study/tree/test)
   used for testing new features before merging to main
-- **paper-design:**
+- [**paper-design:**](https://github.com/Amirht84/Computer-Arch-Study/tree/paper-design)
   schematic designs of the hardware in .jpg files
-- **elements:**
+- [**elements:**](https://github.com/Amirht84/Computer-Arch-Study/tree/elements)
   verilog codes of the most low level modules of this project like ALU, Regfile, etc.
-- **controller:**
+- [**controller:**](https://github.com/Amirht84/Computer-Arch-Study/tree/controller)
   contains verilog codes of controller
-- **data-path:**
+- [**data-path:**](https://github.com/Amirht84/Computer-Arch-Study/tree/data-path)
   contains verilog codes of data path
+- [**assembly:**](https://github.com/Amirht84/Computer-Arch-Study/tree/assembly)
+  contains assembly codes for testing hardware functionality
 
 ## Single-Cycle Micro-Arch
 
