@@ -1,7 +1,10 @@
-module REG_FILE(RReg1, RReg2, WReg, WDat, RDat1, RDat2, we, clk);
-	input [4:0] RReg1;
-	input [4:0] RReg2;
-	input [4:0] WReg;
+module REG_FILE(Addr1, Addr2, AddrW, WDat, RDat1, RDat2, we, clk);
+	parameter STACK_START = 999 * 4;
+	parameter SP_IND = 2;
+
+	input [4:0] Addr1;
+	input [4:0] Addr2;
+	input [4:0] AddrW;
 	input [31:0] WDat;
 
 	input we;
@@ -10,20 +13,20 @@ module REG_FILE(RReg1, RReg2, WReg, WDat, RDat1, RDat2, we, clk);
 	output [31:0] RDat1;
 	output [31:0] RDat2;
 
-	reg [31:0] Regs [0:31];
+	reg [31:0] RegMem [0:31];
 
 	initial begin
 		for(integer i = 0; i < 32; i++) begin
-			Regs[i] = 32'b0;
+			RegMem[i] = 32'b0;
 		end
 	end
 
 	always @(posedge clk) begin
-		if (we && WReg != 0) begin
-			Regs[WReg] <= WDat;
+		if (we && AddrW != 0) begin
+			RegMem[AddrW] <= WDat;
 		end
 	end
 
-	assign RDat1 = Regs[RReg1];
-	assign RDat2 = Regs[RReg2];
+	assign RDat1 = RegMem[Addr1];
+	assign RDat2 = RegMem[Addr2];
 endmodule

@@ -1,13 +1,15 @@
 module INST_MEM(Adr, RDat);
 	parameter INST_SPACE = 1000;
 	input [31:0] Adr;
-	input [31:0] Rdat;
-	reg [31:0] Memo [0: INST_SPACE];
+	output [31:0] Rdat;
+
+	wire [29:0] Index;
+	assign Index = Adr >> 2;
+
+	reg [31:0] InstMemo [0: INST_SPACE - 1];
+	assign RDat = (Adr < INST_MEM) ? InstMemo[Adr] : 32'b0;
 
 	initial begin
-		$readmemh("fileName.hex", Memo);
+		$readmemb("InstMemo.txt", InstMemo);
 	end
-
-	assign RDat = (Adr < INST_MEM) ? Memo[Adr] : 32'b0;
-
 endmodule

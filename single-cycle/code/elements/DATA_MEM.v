@@ -6,10 +6,20 @@ module DATA_MEM(Adr, WDat, RDat, we, clk);
 	input we;
 	input clk;
 
-	reg Memo[0: DATA_SPACE - 1];
+
+	wire [29:0] Index;
+	assign Index = Adr >> 2;
+
+
+	reg [31:0] DataMemo[0: DATA_SPACE - 1];
 	always @(posedge clk)begin
 		if(we)
-			Memo[Adr] <= WDat;
+			DataMemo[Index] <= WDat;
 	end
-	assign RDat = Memo[Adr];
+
+	assign RDat = (Index < DATA_SPACE) ? DataMemo[Index] : 32'b0; // put zero on output if Index is more than memory space
+
+	initial begin
+		$readmemb("DataMemo.txt", DataMemo);
+	end
 endmodule
