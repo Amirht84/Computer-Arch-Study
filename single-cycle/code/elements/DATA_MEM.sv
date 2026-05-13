@@ -20,6 +20,6 @@ module DATA_MEM(Adr, WDat, RDat, we, clk);
 	assign RDat = (Index < DATA_SPACE) ? DataMemo[Index] : 32'b0; // put zero on output if Index is more than memory space
 
 	initial begin
-		$readmemb("DataMemo.txt", DataMemo);
+		$readmemb("DATA_MEM.txt", DataMemo);
 	end
 endmodule

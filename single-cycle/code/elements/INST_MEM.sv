@@ -10,6 +10,6 @@ module INST_MEM(Adr, RDat);
 	assign RDat = (Adr < INST_SPACE) ? InstMemo[Adr] : 32'b0;
 
 	initial begin
-		$readmemb("InstMemo.txt", InstMemo);
+		$readmemb("INST_MEM.txt", InstMemo);
 	end
 endmodule
