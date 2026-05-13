@@ -1,6 +1,7 @@
 module REG_FILE(Addr1, Addr2, AddrW, WDat, RDat1, RDat2, we, clk);
-	parameter STACK_START = 999 * 4;
-	parameter SP_IND = 2;
+	parameter DATA_SPACE = 1000;//words
+	localparam STACK_START = (DATA_SPACE - 1) * 4;
+	localparam SP_IND = 2;
 
 	input [4:0] Addr1;
 	input [4:0] Addr2;
@@ -19,6 +20,7 @@ module REG_FILE(Addr1, Addr2, AddrW, WDat, RDat1, RDat2, we, clk);
 		for(integer i = 0; i < 32; i++) begin
 			RegMem[i] = 32'b0;
 		end
+		RegMem[SP_IND] = STACK_START;
 	end
 
 	always @(posedge clk) begin
