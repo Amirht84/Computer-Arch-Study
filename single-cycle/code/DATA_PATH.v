@@ -57,8 +57,8 @@ module DATA_PATH(PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWri
 	);
 
 	MUX_2IN MUX_4(
-		.A(Wires[13]),
-		.B(Wires[6]),
+		.A(Wires[6]),
+		.B(Wires[13]),
 		.Y(Wires[7]),
 		.sel(WSrc)
 	);
