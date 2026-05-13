@@ -63,7 +63,7 @@ module DATA_PATH(PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWri
 	);
 
 	IMM_EXT OUR_IMM_EXT(
-		.In(InstOut[31:7]),
+		.In(InstOut),
 		.Out(Wires[10]),
 		.sel(ImmSrc)
 	);
