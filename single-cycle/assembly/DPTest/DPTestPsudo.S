@@ -4,7 +4,7 @@
 	add s2, s0, s1
 
 	addi t0, zero, 10
-	blt c, t0, ELSE
+	blt s2, t0, ELSE
 	addi s1, zero, 1000
 	j ENDIF
 ELSE:	
