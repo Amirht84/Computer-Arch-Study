@@ -1,9 +1,8 @@
 module DATA_PATH(PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite, RegWrite, zer, lt, clk);
 
-	input WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite, RegWrite, clk;
+	input PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite, RegWrite, clk;
 	output zer, lt;
 
-	input clk;
 
 	wire [31:0] Wires [0:13];
 	wire [31:0] InstOut;
@@ -11,13 +10,13 @@ module DATA_PATH(PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWri
 
 
 
-	MUX_2IN MUX_1(.A(Wires[13]), .B(Wires[12]), .Y(Wires[0]). .sel(PCSrc)); //sel 0 will A, and sel 1 will B
+	MUX_2IN MUX_1(.A(Wires[13]), .B(Wires[12]), .Y(Wires[0]), .sel(PCSrc)); //sel 0 will A, and sel 1 will B
 
 	REG PC(.D(Wires[0]), .Q(Wires[1]), .clk(clk));
 
 	INC_4 PLUS4(.A(Wires[1]), .Y(Wires[13]));
 
-	INST_MEM IM(.Adr(Wires[1]), RDat(Wires[2]));
+	INST_MEM IM(.Adr(Wires[1]), .RDat(Wires[2]));
 
 	REG_FILE RF(
 		.Addr1(InstOut[19:15]), 
@@ -30,7 +29,7 @@ module DATA_PATH(PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWri
 		.clk(clk)
 	);
 	
-	MUX_2IN MUX_2(.A(Wires[8]), .B(Wires[10]), .Y(Wires[9]). .sel(ALUSrc));
+	MUX_2IN MUX_2(.A(Wires[8]), .B(Wires[10]), .Y(Wires[9]), .sel(ALUSrc));
 
 	ALU OUR_ALU(
 		.A(Wires[3]),
