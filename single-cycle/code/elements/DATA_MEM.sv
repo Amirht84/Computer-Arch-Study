@@ -1,5 +1,5 @@
 module DATA_MEM(Adr, WDat, RDat, we, clk);
-	parameter DATA_SPACE = 1000;
+	parameter DATA_SPACE = 10;
 	input [31:0] Adr;
 	input [31:0] WDat;
 	output [31:0] RDat;

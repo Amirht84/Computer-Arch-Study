@@ -1,5 +1,5 @@
 module INST_MEM(Adr, RDat);
-	parameter INST_SPACE = 1000;
+	parameter INST_SPACE = 10;
 	input [31:0] Adr;
 	output [31:0] RDat;
 
@@ -7,7 +7,7 @@ module INST_MEM(Adr, RDat);
 	assign Index = Adr >> 2;
 
 	reg [31:0] InstMemo [0: INST_SPACE - 1];
-	assign RDat = (Adr < INST_SPACE) ? InstMemo[Adr] : 32'b0;
+	assign RDat = (Index < INST_SPACE) ? InstMemo[Index] : 32'b0;
 
 	initial begin
 		$readmemb("INST_MEM.txt", InstMemo);

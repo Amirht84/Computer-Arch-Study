@@ -1,6 +1,8 @@
 module DATA_PATH(PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite, RegWrite, zer, lt, clk);
 
-	input PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite, RegWrite, clk;
+	input PCSrc, WSrc, ALUSrc, AddSrc, ResultSrc, MemWrite, RegWrite, clk;
+	input [1: 0] ImmSrc;
+	input [2:0] ALUfunc;
 	output zer, lt;
 
 

@@ -1,5 +1,5 @@
 module REG_FILE(Addr1, Addr2, AddrW, WDat, RDat1, RDat2, we, clk);
-	parameter DATA_SPACE = 1000;//words
+	parameter DATA_SPACE = 10;//words
 	localparam STACK_START = (DATA_SPACE - 1) * 4;
 	localparam SP_IND = 2;
 

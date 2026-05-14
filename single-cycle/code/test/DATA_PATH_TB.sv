@@ -26,9 +26,10 @@ module DATA_PATH_TB();
 
 	initial begin
 
+		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0; 
+
 		#50;
 
-		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0; 
 
 		//lw
 		PCSrc=0;
