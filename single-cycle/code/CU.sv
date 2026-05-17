@@ -1,10 +1,10 @@
-module CU(PCSrc,WSrc,RegWrite,ImmSrc,ALUSrc,ALUFunc,MemWrite,ResultSrc,AddSrc,Func3,Func7,Op,Zero,Lt);
+module CU(PCSrc,WSrc,RegWrite,ImmSrc,ALUSrc,ALUfunc,MemWrite,ResultSrc,AddSrc,Func3,Func7,Op,zer,lt);
 	input [6:0] Func7,Op;
 	input [2:0] Func3;
-	input Zero,Lt;
+	input zer,lt;
 	output PCSrc,WSrc,RegWrite,ALUSrc,MemWrite,ResultSrc,AddSrc;
 	output [1:0] ImmSrc;
-	output [2:0] ALUFunc;
+	output [2:0] ALUfunc;
 
 	wire [1:0] ALUOp;
 	wire Branch,Jump,Lt_Eq , Not;
@@ -27,7 +27,7 @@ module CU(PCSrc,WSrc,RegWrite,ImmSrc,ALUSrc,ALUFunc,MemWrite,ResultSrc,AddSrc,Fu
 		.ALUOp(ALUOp),
 		.Func3(Func3),
 		.Func7(Func7),
-		.ALUFunc(ALUFunc),
+		.ALUfunc(ALUfunc),
 		.Lt_Eq(Lt_Eq),
 		.Not(Not)
 	);
@@ -37,8 +37,8 @@ module CU(PCSrc,WSrc,RegWrite,ImmSrc,ALUSrc,ALUFunc,MemWrite,ResultSrc,AddSrc,Fu
 		.Jump(Jump),
 		.Lt_Eq(Lt_Eq),
 		.Not(Not),
-		.Lt(Lt),
-		.Zer(Zero),
+		.lt(lt),
+		.zer(zer),
 		.PCSrc(PCSrc)
 	);
 endmodule

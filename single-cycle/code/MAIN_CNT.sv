@@ -1,7 +1,16 @@
 module MAIN_CNT(Op, ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc, ImmSrc, AddSrc);
+
+	/////////// Op Codes ///////////
 	localparam [6:0] rt = 7'd51, bt = 7'd99, it = 7'd19, lw = 7'd3, sw = 7'd35, jal = 7'd111, jalr = 7'd103;
+	/////////// Op Codes ///////////
+
+
+	/////////// Dont Care ///////////
 	localparam [1:0] _2bdd = 2'b00;
 	localparam _1bd = 2'b0;
+	/////////// Dont Care ///////////
+
+
 	input [6:0] Op;
 	output [1:0] ALUOp, ImmSrc;
 	output RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc, AddSrc;
@@ -32,4 +41,5 @@ module MAIN_CNT(Op, ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, 
 	end
 	
 	assign {ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc, ImmSrc, AddSrc} = OutPut;
+
 endmodule
