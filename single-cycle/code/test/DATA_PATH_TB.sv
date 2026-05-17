@@ -1,4 +1,6 @@
 module DATA_PATH_TB();
+	
+	reg IsBranch;
 
 	reg PCSrc, WSrc, ALUSrc, AddSrc, ResultSrc, MemWrite, RegWrite, clk;
 	reg [2:0] ALUfunc;
@@ -21,7 +23,9 @@ module DATA_PATH_TB();
  		.clk(clk)
 	);
 
-	initial clk = 0;
+	initial begin
+		clk = 0;
+	end
 	always begin 
 		#200 clk = ~clk;
 	end
@@ -86,10 +90,12 @@ module DATA_PATH_TB();
 		ALUfunc=3'b10;
 		AddSrc=0;
 		ImmSrc=2'b10;
-		if (lt==1'b1) begin
+		if (lt == 1'b1) begin
 			PCSrc=1;
+			IsBranch = 1'b1;
 		end else begin
 			PCSrc=0;
+			IsBranh = 1'b0;
 		end
 		#400;
 
@@ -106,25 +112,21 @@ module DATA_PATH_TB();
 		#400;
 
 		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
-
-		//jal
-		PCSrc=1;
-		RegWrite=1;
-		WSrc=1;
-		ImmSrc=2'b11;
-		AddSrc=0;
-		#400;
-
-		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
-
-		//addi
-		PCSrc=0;
-		ALUSrc=1;
-		RegWrite=1;
-		WSrc=0;
-		ALUfunc=3'b0;
-		ResultSrc=0;
-		ImmSrc=2'b0;
+		if(IsBranch == 1'b1) begin
+			//sw
+			PCSrc=0;
+			ALUSrc=1;
+			RegWrite=0;
+			ALUfunc=3'b0;
+			ImmSrc=2'b01;
+		end else begin
+			//jal
+			PCSrc=1;
+			RegWrite=1;
+			WSrc=1;
+			ImmSrc=2'b11;
+			AddSrc=0;
+		end
 		#400;
 
 		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
