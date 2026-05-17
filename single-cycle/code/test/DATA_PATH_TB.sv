@@ -3,6 +3,7 @@ module DATA_PATH_TB();
 	reg PCSrc, WSrc, ALUSrc, AddSrc, ResultSrc, MemWrite, RegWrite, clk;
 	reg [2:0] ALUfunc;
 	reg [1:0] ImmSrc;
+	wire InstOut;
   	wire zer,lt;
 	DATA_PATH inst(
 		.PCSrc(PCSrc),
@@ -16,6 +17,7 @@ module DATA_PATH_TB();
  		.RegWrite(RegWrite),
  		.zer(zer),
  		.lt(lt),
+		.InstOut(InstOut),
  		.clk(clk)
 	);
 
