@@ -1,31 +1,35 @@
 module MAIN_CNT(Op, ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc, ImmSrc, AddSrc);
 	localparam [6:0] rt = 7'd51, bt = 7'd99, it = 7'd19, lw = 7'd3, sw = 7'd35, jal = 7'd111, jalr = 7'd103;
+	localparam [1:0] _2bdd = 2'b00;
+	localparam _1bd = 2'b0;
 	input [6:0] Op;
-	output logic [1:0] ALUOp, ImmSrc;
-	output logic RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc, AddSrc;
+	output [1:0] ALUOp, ImmSrc;
+	output RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc, AddSrc;
+
+	reg [11:0] OutPut;
 
 	always @(Op) begin
 
-		{ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc, ImmSrc, AddSrc} = 12'b0;
+		Output = 12'b0;
 
 		case(Op)
-			rt:	{ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc} =		9'b101000000;
+			rt:	Output =		{2'b10 , 1'b1 , 1'b0 , 1'b0 , 1'b0 , 1'b0 , 1'b0 , 1'b0 , _2bdd , _1bd };
 			
-			bt:	{ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ImmSrc, AddSrc} =		10'b0100100100;
+			bt:	Output =		{2'b01 , 1'b0 , 1'b0 , 1'b1 , 1'b0 , 1'b0 , _1bd , _1bd , 2'b10 , 1'b0 };
 
-			it:	{ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc, ImmSrc} =	11'b11110000000;
+			it:	Output =		{2'b11 , 1'b1 , 1'b1 , 1'b0 , 1'b0 , 1'b0 , 1'b0 , 1'b0 , 2'b00 , _1bd };
 
-			lw:	{ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc, ImmSrc} =	11'b00110001000;
+			lw:	Output =		{2'b00 , 1'b1 , 1'b1 , 1'b0 , 1'b0 , 1'b0 , 1'b1 , 1'b0 , 2'b00 , _1bd };
 
-			sw:	{ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ImmSrc} =			9'b000100101;
+			sw:	Output =		{2'b00 , 1'b0 , 1'b1 , 1'b0 , 1'b0 , 1'b1 , _1bd , _1bd , 2'b01 , _1bd };
 
-			jal:	{RegWrite, Jump, MemWrite, WSrc, ImmSrc, AddSrc} =				7'b1101110;
+			jal:	Output =		{_2bdd , 1'b1 , _1bd , _1bd , 1'b1 , 1'b0 , _1bd , 1'b1 , 2'b11 , 1'b0 };
 
-			jalr:	{RegWrite, Jump, MemWrite, WSrc, ImmSrc, AddSrc} =				7'b1101111;
+			jalr:	Output =		{_2bdd , 1'b1 , _1bd , _1bd , 1'b1 , 1'b0 , _1bd , 1'b1 , 2'b11 , 1'b0 };
 
 		endcase
 
 	end
 	
-	
+	assign {ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, WSrc, ImmSrc, AddSrc} = OutPut;
 endmodule
