@@ -1,13 +1,12 @@
-module DATA_PATH(PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite, RegWrite, zer, lt, clk);
+module DATA_PATH(PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite, RegWrite, zer, lt, InstOut, clk);
 
 	input PCSrc, WSrc, ALUSrc, AddSrc, ResultSrc, MemWrite, RegWrite, clk;
 	input [1: 0] ImmSrc;
 	input [2:0] ALUfunc;
+	output [31:0] InstOut;
 	output zer, lt;
 
-
 	wire [31:0] Wires [0:13];
-	wire [31:0] InstOut;
 	assign InstOut = Wires[2];
 
 
