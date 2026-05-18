@@ -1,13 +1,13 @@
 module FUNC_CNT(ALUOp,Func3,Func7,ALUfunc,Lt_Eq,Not);
 
 	//////////////////// ALUOp ////////////////////
-	localparam [1:0] localparam lw_sw = 2'b00, b_type = 2'b01 , r_type = 2'b10 , i_type = 2'b11;
+	localparam [1:0]lw_sw = 2'b00, b_type = 2'b01 , r_type = 2'b10 , i_type = 2'b11;
 	//////////////////// ALUOp ////////////////////
 
 
 	//////////////////// Func3, Func7 ////////////////////
-	localparam [2:0] localparam beq_f = 3'd0, bne_f = 3'd1, blt_f = 3'd4, bge_f = 3'd5, addi_f = 3'd0, xori_f = 3'd4, ori_f = 3'd6, slti_f = 3'd2;
-	localparam [9:0] localparam add_f = {3'd0, 7'd0}, sub_f = {3'd0, 7'd32}, and_f = {3'd7, 7'd0}, or_f = {3'd6, 7'd0}, slt_f = {3'd2, 7'd0};
+	localparam [2:0] beq_f = 3'd0, bne_f = 3'd1, blt_f = 3'd4, bge_f = 3'd5, addi_f = 3'd0, xori_f = 3'd4, ori_f = 3'd6, slti_f = 3'd2;
+	localparam [9:0] add_f = {3'd0, 7'd0}, sub_f = {3'd0, 7'd32}, and_f = {3'd7, 7'd0}, or_f = {3'd6, 7'd0}, slt_f = {3'd2, 7'd0};
 	//////////////////// Func3, Func7 ////////////////////
 
 	//////////////////// Dont Care //////////////////// 
@@ -63,6 +63,6 @@ module FUNC_CNT(ALUOp,Func3,Func7,ALUfunc,Lt_Eq,Not);
 
 	end
 
-	assign {ALUfunc, Lt_Eq, Not} = Output;
+	assign {ALUfunc, Lt_Eq, Not} = OutPut;
 
 endmodule
