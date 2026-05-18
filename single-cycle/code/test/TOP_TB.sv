@@ -3,15 +3,16 @@ module CPU_TB();
 
 	reg clk;
 
+	TOP #(.MEM_SPACE(10), .INST_SPACE(20)) our_top(clk);
+
 	initial clk = 0;
-	CPU OUR_CPU(clk);
 	always begin
 		#200;
 		clk = ~clk;
 
 		#10;
 
-		if(OUR_CPU.DP.Wires[1] == 32'd64) begin
+		if(our_top.cpu.DP.Wires[1] == 32'd64) begin
 			EndCnt = EndCnt + 1;
 		end else begin
 			EndCnt = 0;

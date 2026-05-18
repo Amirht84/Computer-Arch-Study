@@ -1,5 +1,4 @@
-module INST_MEM(Adr, RDat);
-	parameter INST_SPACE = 20;
+module INST_MEM#(parameter INST_SPACE = 10) (Adr, RDat);
 	input [31:0] Adr;
 	output [31:0] RDat;
 

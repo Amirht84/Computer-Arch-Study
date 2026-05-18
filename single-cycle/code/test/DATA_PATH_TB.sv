@@ -6,6 +6,7 @@ module DATA_PATH_TB();
 	reg [2:0] ALUfunc;
 	reg [1:0] ImmSrc;
 	wire [31:0] InstOut;
+	wire [31:0] InstAdr, MemAdr, InstRD, MemRD, MemWD;
   	wire zer,lt;
 	DATA_PATH inst(
 		.PCSrc(PCSrc),
@@ -15,13 +16,25 @@ module DATA_PATH_TB();
  		.AddSrc(AddSrc),
  		.ResultSrc(ResultSrc),
  		.ALUfunc(ALUfunc),
- 		.MemWrite(MemWrite),
  		.RegWrite(RegWrite),
  		.zer(zer),
  		.lt(lt),
-		.InstOut(InstOut),
+		.InstAdr(InstAdr),
+		.MemAdr(MemAdr),
+		.MemWD(MemWD),
+		.InstRD(InstRD),
+		.MemRD(MemRD),
  		.clk(clk)
 	);
+	MEM #(.MEM_SPACE(10), .INST_SPACE(10)) mem(
+			.InstAdr(InstAdr),
+			.MemAdr(MemAdr),
+			.MemWD(MemWD),
+			.InstRD(InstRD),
+			.MemRD(MemRD),
+			.we(MemWrite),
+			.clk(clk)
+		);
 
 	initial begin
 		clk = 0;
@@ -121,6 +134,7 @@ module DATA_PATH_TB();
 			ALUfunc=3'b0;
 			ImmSrc=2'b01;
 			MemWrite=1;
+			#400;
 			$stop;
 		end else begin
 			//jal
@@ -129,8 +143,8 @@ module DATA_PATH_TB();
 			WSrc=1;
 			ImmSrc=2'b11;
 			AddSrc=0;
+			#400;
 		end
-		#400;
 
 		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
 
