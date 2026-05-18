@@ -7,7 +7,7 @@ module MAIN_CNT(Op, ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, 
 
 	/////////// Dont Care ///////////
 	localparam [1:0] _2bdd = 2'b00;
-	localparam _1bd = 2'b0;
+	localparam _1bd = 1'b0;
 	/////////// Dont Care ///////////
 
 
@@ -34,7 +34,7 @@ module MAIN_CNT(Op, ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, 
 
 			jal:	OutPut =		{_2bdd , 1'b1 , _1bd , _1bd , 1'b1 , 1'b0 , _1bd , 1'b1 , 2'b11 , 1'b0 };
 
-			jalr:	OutPut =		{_2bdd , 1'b1 , _1bd , _1bd , 1'b1 , 1'b0 , _1bd , 1'b1 , 2'b11 , 1'b0 };
+			jalr:	OutPut =		{_2bdd , 1'b1 , _1bd , _1bd , 1'b1 , 1'b0 , _1bd , 1'b1 , 2'b11 , 1'b1 };
 
 		endcase
 
