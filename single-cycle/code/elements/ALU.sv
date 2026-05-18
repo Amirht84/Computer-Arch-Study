@@ -9,11 +9,13 @@ module ALU(A, B, f, Y, zer, lt);
 
 	always @(A, B, f) begin
 		Y = 32'b0;
+		C = 32'b0;
 		case(f)
 			3'b000: Y = A + B;
 			3'b001: Y = A - B;
 			3'b010: Y = A & B;
 			3'b011: Y = A | B;
+			3'b100: Y = A ^ B;
 			3'b101: begin
 				C = A - B;
 				if(C[31] == 1'b0) begin
