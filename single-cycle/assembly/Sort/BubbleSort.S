@@ -9,7 +9,7 @@ lw	s4, 0(s3)
 lw	s5, 4(s3)
 bge	s4, s5, 12
 sw	s4, 4(s3)
-sw	s5, 0(s4)
+sw	s5, 0(s3)
 addi	s3, s3, 4
 jal	zero, -32
 addi	s2, s2, 4
