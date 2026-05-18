@@ -4,13 +4,10 @@ module CPU_TB();
 	reg clk;
 
 	initial clk = 0;
+	always #200 clk = ~clk;
 	CPU OUR_CPU(clk);
 	always begin
-		#200;
-		clk = ~clk;
-
-		#10;
-
+		#207;
 		if(OUR_CPU.DP.Wires[1] == 32'd64) begin
 			EndCnt = EndCnt + 1;
 		end else begin
