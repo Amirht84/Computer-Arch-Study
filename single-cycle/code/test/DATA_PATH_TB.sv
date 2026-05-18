@@ -5,7 +5,7 @@ module DATA_PATH_TB();
 	reg PCSrc, WSrc, ALUSrc, AddSrc, ResultSrc, MemWrite, RegWrite, clk;
 	reg [2:0] ALUfunc;
 	reg [1:0] ImmSrc;
-	wire InstOut;
+	wire [31:0] InstOut;
   	wire zer,lt;
 	DATA_PATH inst(
 		.PCSrc(PCSrc),
@@ -87,15 +87,16 @@ module DATA_PATH_TB();
 		//blt
 		ALUSrc=0;
 		RegWrite=0;
-		ALUfunc=3'b10;
+		ALUfunc=3'b101;
 		AddSrc=0;
 		ImmSrc=2'b10;
+		#10;
 		if (lt == 1'b1) begin
 			PCSrc=1;
 			IsBranch = 1'b1;
 		end else begin
 			PCSrc=0;
-			IsBranh = 1'b0;
+			IsBranch = 1'b0;
 		end
 		#400;
 
@@ -119,6 +120,8 @@ module DATA_PATH_TB();
 			RegWrite=0;
 			ALUfunc=3'b0;
 			ImmSrc=2'b01;
+			MemWrite=1;
+			$stop;
 		end else begin
 			//jal
 			PCSrc=1;
@@ -137,6 +140,7 @@ module DATA_PATH_TB();
 		RegWrite=0;
 		ALUfunc=3'b0;
 		ImmSrc=2'b01;
+		MemWrite=1;
 		#400;
 
 		$stop;
