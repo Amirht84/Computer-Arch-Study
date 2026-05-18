@@ -14,7 +14,7 @@ WhileJ:
 if:
 	bge s4, s5, Endif
 	sw s4, 4(s3)
-	sw s5, 0(s4)
+	sw s5, 0(s3)
 Endif:
 	addi s3, s3, 4
 	j WhileJ
