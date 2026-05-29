@@ -1,0 +1,66 @@
+---
+# Instruction Fetch
+IR = Mem[PC];
+PC = PC + 4;
+OldPC = PC;
+
+---
+# Instruction Decode
+A = RegFile[IR(19:15)]
+B = RegFile[IR(24:20)]
+ALUOut = OldPC + ImmExt(B-Type);
+
+---
+# Execution
+B-T:
+	if(A cond B)
+		PC = ALUOut;
+
+R-T:
+	ALUOut = A op B;
+
+IA-T:
+	ALUOut = A op ImmExt(I-Type);
+
+jal:
+	ALUOut = OldPC + 4;
+
+jalr:
+	ALUOut = OldPC + 4;
+
+sw:
+	ALUOut = A + ImmExt(S-Type);
+
+lw:
+	ALUOut = A + ImmExt(I-Type);
+
+---
+# Memory Access
+R-T:
+	RegFile[IR(11:7)] = ALUOut;
+
+IA-T:
+	RegFile[IR(11:7)] = ALUOut;
+
+jal:
+	RegFile[IR(11:7)] = ALUOut;
+
+jalr:
+	RegFile[IR(11:7)] = ALUOut;
+
+sw:
+	Mem[ALUOut] = B;
+
+lw:
+	MDR = Mem[ALUOut];
+
+---
+<Write Data>
+lw:
+	RegFile[IR(11:7)] = MDR;
+
+jal:
+	PC = OldPC + ImmExt(J-Type);
+
+jalr:
+	PC = A + ImmExt(I-Type);
