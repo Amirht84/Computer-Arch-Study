@@ -1,48 +1,55 @@
-module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite, clk);
-	wire [6:0] Func7, Op;
-	wire [2:0] Func3;
-	wire PCSrc,WSrc,RegWrite,ALUSrc,ResultSrc,AddSrc,zer,lt;
-	wire [1:0] ImmSrc;
-	wire [2:0] ALUfunc;
-	output [31:0] InstAdr, MemAdr, MemWD;
-	output MemWrite;
+module CPU(MemAdr, InstRD, MemRD, MemWD, MemWrite, IRWrite, clk);
+	output [31:0] MemAdr, MemWD;
+	output MemWrite, IRWrite;
 	input [31:0] InstRD, MemRD;
-	input clk ;
+	input clk;
 
+	wire PCWrite, AdrSrc, OldPCWrite, RegWrite, Zer, Lt;
+	wire [1:0] ALUSrcA, ALUSrcB, ImmSrc, ResultSrc
+	wire [2:0] ALUFunc, Func3;
+	wire [6:0] Op, Func7;
 	assign Func7= InstRD[31:25];
 	assign Func3= InstRD[14:12];
 	assign Op= InstRD[6:0];
-	CU CCU(
-		.PCSrc(PCSrc),
-		.WSrc(WSrc),
+
+	DATA_PATH data_path(
+		.PCWrite(PCWrite),
+		.AdrSrc(AdrSrc),
+		.OldPCWrite(OldPCWrite),
 		.RegWrite(RegWrite),
+		.ALUSrcA(ALUSrcA),
+		.ALUSrcB(ALUSrcB),
 		.ImmSrc(ImmSrc),
-		.ALUSrc(ALUSrc),
-		.ALUfunc(ALUfunc),
-		.MemWrite(MemWrite),
+		.ALUFunc(ALUFunc),
 		.ResultSrc(ResultSrc),
+		.MemAdr(MemAdr),
+		.MemRD(MemRD),
+		.MemWD(MemWD),
+		.InstRD(InstRD),
+		.Zer(Zer),
+		.Lt(Lt),
+		.clk(clk)
+	);
+
+	CU cu(
 		.AddSrc(AddSrc),
+		.MemWrite(MemWrite),
+		.IRWrite(IRWrite),
+		.OldPCWrite(OldPCWrite),
+		.RegWrite(RegWrite),
+		.AluSrcA(AluSrcA),
+		.AluSrcB(AluSrcB),
+		.ResultSrc(ResultSrc),
+		.ImmSrc(ImmSrc),
+		.OP(Op),
 		.Func3(Func3),
 		.Func7(Func7),
-		.Op(Op),
-		.zer(zer),
-		.lt(lt)
+		.PCWrite(PCWrite),
+		.ALUfunc(ALUFunc),
+		.lt(Lt),
+		.zer(Zer),
+		.clk(clk)
 	);
-	DATA_PATH DP(
-		.PCSrc(PCSrc),
-		.WSrc(WSrc),
-		.ImmSrc(ImmSrc),
-		.ALUSrc(ALUSrc),
-		.AddSrc(AddSrc),
-		.ResultSrc(ResultSrc),
-		.ALUfunc(ALUfunc),
-		.RegWrite(RegWrite),
-		.zer(zer),
-		.lt(lt),
-		.InstRD(InstRD),
-		.MemRD(MemRD),
-		.InstAdr(InstAdr),
-		.MemAdr(MemAdr),
-		.MemWD(MemWD),
-		.clk(clk));
+
+
 endmodule
