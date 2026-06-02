@@ -1,26 +1,28 @@
-module CU(PCSrc,WSrc,RegWrite,ImmSrc,ALUSrc,ALUfunc,MemWrite,ResultSrc,AddSrc,Func3,Func7,Op,zer,lt);
+module CU(AddSrc,MemWrite,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB,ResultSrc,ImmSrc,OP,Func3,Func7,PCWrite,ALUfunc,lt,zer);
 	input [6:0] Func7,Op;
 	input [2:0] Func3;
 	input zer,lt;
-	output PCSrc,WSrc,RegWrite,ALUSrc,MemWrite,ResultSrc,AddSrc;
-	output [1:0] ImmSrc;
+	output AddSrc,MemWrite,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB,ResultSrc;
+	output [1:0] AluSrcA,AluSrcB,ResultSrc,ImmSrc;
 	output [2:0] ALUfunc;
 
 	wire [1:0] ALUOp;
-	wire Branch,Jump,Lt_Eq , Not;
+	wire CondWrite,Write,Lt_Eq , Not;
 
 	MAIN_CNT MCC(
 		.Op(Op),
 		.ALUOp(ALUOp),
-		.RegWrite(RegWrite),
-		.ALUSrc(ALUSrc), 
-		.Branch(Branch), 
-		.Jump(Jump), 
+		.AddSrc(AddSrc),
 		.MemWrite(MemWrite), 
+		.IRWrite(IRWrite), 
+		.OldPCWrite(OldPCWrite), 
+		.RegWrite(RegWrite), 
+		.AluSrcA(AluSrcA), 
+		.AluSrcB(AluSrcB), 
 		.ResultSrc(ResultSrc), 
-		.WSrc(WSrc), 
-		.ImmSrc(ImmSrc), 
-		.AddSrc(AddSrc)
+		.ImmSrc(ImmSrc)
+		.CondWrite(CondWrite),
+		.Write(Write)
 	);
 
 	FUNC_CNT FCC(
@@ -33,8 +35,8 @@ module CU(PCSrc,WSrc,RegWrite,ImmSrc,ALUSrc,ALUfunc,MemWrite,ResultSrc,AddSrc,Fu
 	);
 
 	PC_CNT PCC(
-		.Branch(Branch),
-		.Jump(Jump),
+		.CondWrite(CondWrite),
+		.Write(Write),
 		.Lt_Eq(Lt_Eq),
 		.Not(Not),
 		.lt(lt),
