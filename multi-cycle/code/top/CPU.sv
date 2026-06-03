@@ -5,7 +5,7 @@ module CPU(MemAdr, InstRD, MemRD, MemWD, MemWrite, IRWrite, clk);
 	input clk;
 
 	wire PCWrite, AdrSrc, OldPCWrite, RegWrite, Zer, Lt;
-	wire [1:0] ALUSrcA, ALUSrcB, ImmSrc, ResultSrc
+	wire [1:0] ALUSrcA, ALUSrcB, ImmSrc, ResultSrc;
 	wire [2:0] ALUFunc, Func3;
 	wire [6:0] Op, Func7;
 	assign Func7= InstRD[31:25];
