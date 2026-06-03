@@ -7,45 +7,44 @@ module DATA_PATH(PCWrite, AdrSrc, OldPCWrite, RegWrite, ALUSrcA, ALUSrcB, ImmSrc
 	output [31:0] MemAdr, MemWD;
 	output Zer, Lt;
 
-	wire [31:0] Wires [0:15];
-	wire [31:0] NotUsed;
+	wire [31:0] NotUsed, PCOut, AdrSrcOut, RD1Out, AOut, AluSrcAOut, OldPCOut;
+	wire [31:0] RD2Out, BOut, ImmExtOut, Four, AluSrcBOut, AluOut, AluRegOut, ResaultSrcOut;
 	assign NotUsed = 32'b0;
-	assign MemAdr = Wires[1];
-	assign MemWD = Wires[8];
-	assign Wires[2] = InstRD;
-	assign Wires[9] = MemRD;
-	assign Wires[11] = 32'd4;
-	REG_EN PC (.D(Wires[15]), .Q(Wires[0]), .clk(clk), .en(PCWrite));
+	assign MemAdr = AdrSrcOut;
+	assign MemWD = BOut;
+	assign Four = 32'd4;
 
-	MUX_2IN MUX_0 (.A(Wires[0]), .B(Wires[15]), .Y(Wires[1]), .sel(AdrSrc));
+	REG_EN pc (.D(ResaultSrcOut), .Q(PCOut), .clk(clk), .en(PCWrite));
 
-	REG_EN OldPC (.D(Wires[0]), .Q(Wires[6]), .clk(clk), .en(OldPCWrite));
+	MUX_2IN adr_src (.A(PCOut), .B(ResaultSrcOut), .Y(AdrSrcOut), .sel(AdrSrc));
 
-	REG_FILE RegFile (
+	REG_EN old_pc (.D(PCOut), .Q(OldPCOut), .clk(clk), .en(OldPCWrite));
+
+	REG_FILE reg_file (
 		.Addr1(InstRD[19:15]),
 		.Addr2(InstRD[24:20]),
 		.AddrW(InstRD[11:7]),
-		.WDat(Wires[15]),
-		.RDat1(Wires[3]),
-		.RDat2(Wires[7]),
+		.WDat(ResaultSrcOut),
+		.RDat1(RD1Out),
+		.RDat2(RD2Out),
 		.we(RegWrite),
 		.clk(clk)
 	);
 
-	REG A (.D(Wires[3]), .Q(Wires[4]), .clk(clk));
+	REG a_reg (.D(RD1Out), .Q(AOut), .clk(clk));
 
-	REG B (.D(Wires[7]), .Q(Wires[8]), .clk(clk));
+	REG b_reg (.D(RD2Out), .Q(BOut), .clk(clk));
 
-	MUX_4IN MUX_1 (.A(Wires[0]), .B(Wires[6]), .C(Wires[4]), .D(NotUsed), .Y(Wires[5]), .sel(ALUSrcA));
+	MUX_4IN alu_src_a (.A(PCOut), .B(OldPCOut), .C(AOut), .D(NotUsed), .Y(AluSrcAOut), .sel(ALUSrcA));
 
-	MUX_4IN MUX_2 (.A(Wires[8]), .B(Wires[10]), .C(Wires[11]), .D(NotUsed), .Y(Wires[12]), .sel(ALUSrcB));
+	MUX_4IN alu_src_b (.A(BOut), .B(ImmExtOut), .C(Four), .D(NotUsed), .Y(AluSrcBOut), .sel(ALUSrcB));
 
-	IMM_EXT IMM_EXT (.In(Wires[2]), .Out(Wires[10]), .sel(ImmSrc));
+	IMM_EXT imm_ext (.In(InstRD), .Out(ImmExtOut), .sel(ImmSrc));
 
-	ALU Alu (.A(Wires[5]), .B(Wires[12]), .Y(Wires[13]), .f(ALUFunc), .zer(Zer), .lt(Lt));
+	ALU alu (.A(AluSrcAOut), .B(AluSrcBOut), .Y(AluOut), .f(ALUFunc), .zer(Zer), .lt(Lt));
 
-	REG ALUOut (.D(Wires[13]), .Q(Wires[14]), .clk(clk));
+	REG alu_reg (.D(AluOut), .Q(AluRegOut), .clk(clk));
 
-	MUX_4IN MUX_3 (.A(Wires[14]), .B(Wires[13]), .C(Wires[9]), .D(NotUsed), .Y(Wires[15]), .sel(ResultSrc));
+	MUX_4IN resault_src (.A(AluRegOut), .B(AluOut), .C(MemRD), .D(NotUsed), .Y(ResaultSrcOut), .sel(ResultSrc));
 
 endmodule
