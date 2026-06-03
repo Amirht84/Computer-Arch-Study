@@ -2,6 +2,7 @@ module MEM #(parameter MEM_SPACE = 10) (MemAdr, InstRD, MemRD, MemWD, MemWrite, 
 	input [31:0] MemAdr, MemWD;
 	input MemWrite, IRWrite;
 	output [31:0] InstRD, MemRD;
+	input clk;
 	
 	wire MemOut;
 	REG_EN ir(.Q(MemOut), .D(InstRD), .en(IRWrite), .clk(clk));
