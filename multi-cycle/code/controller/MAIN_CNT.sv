@@ -32,8 +32,8 @@ module MAIN_CNT(OP,AdrSrc ,MemWrite ,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB
 		.OldPCWrite(OldPCWrite),
 		.IRWrite(IRWrite),
 		.RegWrite(RegWrite),
-		.ALUSrcA(ALUSrcA),
-		.ALUSrcB(ALUSrcB),
+		.ALUSrcA(AluSrcA),
+		.ALUSrcB(AluSrcB),
 		.ImmSrc(ImmSrc),
 		.ALUOp(ALUOp),
 		.ResultSrc(ResultSrc)
