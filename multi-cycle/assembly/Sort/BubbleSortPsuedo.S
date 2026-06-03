@@ -1,5 +1,5 @@
 Main:	
-	addi s1, zero, 0x0
+	addi s1, zero, 0x14
 	add s2, s1, zero
 	
 WhileI:	
