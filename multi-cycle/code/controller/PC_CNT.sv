@@ -1,4 +1,4 @@
-module PC_CNT(CondWrite,write,Lt_Eq,Not,lt,zer,PCSrc);
+module PC_CNT(CondWrite,Write,Lt_Eq,Not,lt,zer,PCSrc);
 
 	wire Y1,Y2,Y3;
 	input CondWrite,Write,Lt_Eq,Not,lt,zer;
