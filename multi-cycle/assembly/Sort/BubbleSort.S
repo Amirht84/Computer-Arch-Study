@@ -1,9 +1,9 @@
 addi    s1, zero, 0x50
 add     s2, s1, zero
-slti	t0, s2, 40
+slti	t0, s2, 0x78
 beq     t0, zero, 52
 add     s3, s1, zero
-slti	t0, s3, 36
+slti	t0, s3, 0x74
 beq     t0, zero, 32
 lw      s4, 0(s3)
 lw      s5, 4(s3)
