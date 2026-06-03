@@ -4,7 +4,7 @@ module MEM #(parameter MEM_SPACE = 10) (MemAdr, InstRD, MemRD, MemWD, MemWrite, 
 	output [31:0] InstRD, MemRD;
 	input clk;
 	
-	wire MemOut;
+	wire [31:0] MemOut;
 	REG_EN ir(.Q(MemOut), .D(InstRD), .en(IRWrite), .clk(clk));
 	REG mdr(.Q(MemOut), .D(MemRD), .clk(clk));
 
