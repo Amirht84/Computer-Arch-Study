@@ -1,4 +1,4 @@
-﻿Inst,op,ALU Op,RegWrite,ALUSrc,Branch,Jump,MemWrite,ResultSrc,WSrc,ImmSrc,AddSrc
+﻿Inst,op,ALU Op,RegWrite,ALUSrc,Branch,Jump,MemWrite,ResultSrc,WSrc,ImmSrc,AdrSrc
 R-T,51,10,1,0,0,0,0,0,0,_,_
 B-T,99,01,0,0,1,0,0,_,_,10,0
 I-Arithmatic,19,11,1,1,0,0,0,0,0,00,_

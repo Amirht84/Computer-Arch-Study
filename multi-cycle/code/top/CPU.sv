@@ -32,7 +32,7 @@ module CPU(MemAdr, InstRD, MemRD, MemWD, MemWrite, IRWrite, clk);
 	);
 
 	CU cu(
-		.AddSrc(AddSrc),
+		.AdrSrc(AdrSrc),
 		.MemWrite(MemWrite),
 		.IRWrite(IRWrite),
 		.OldPCWrite(OldPCWrite),

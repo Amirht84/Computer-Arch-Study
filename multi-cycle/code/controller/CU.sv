@@ -1,8 +1,8 @@
-module CU(AddSrc,MemWrite,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB,ResultSrc,ImmSrc,OP,Func3,Func7,PCWrite,ALUfunc,lt,zer, clk);
+module CU(AdrSrc,MemWrite,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB,ResultSrc,ImmSrc,OP,Func3,Func7,PCWrite,ALUfunc,lt,zer, clk);
 	input [6:0] Func7,Op;
 	input [2:0] Func3;
 	input zer,lt;
-	output AddSrc,MemWrite,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB,ResultSrc;
+	output AdrSrc,MemWrite,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB,ResultSrc;
 	output [1:0] AluSrcA,AluSrcB,ResultSrc,ImmSrc;
 	output [2:0] ALUfunc;
 	input clk;
@@ -13,7 +13,7 @@ module CU(AddSrc,MemWrite,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB,ResultSrc,
 	MAIN_CNT MCC(
 		.Op(Op),
 		.ALUOp(ALUOp),
-		.AddSrc(AddSrc),
+		.AdrSrc(AdrSrc),
 		.MemWrite(MemWrite), 
 		.IRWrite(IRWrite), 
 		.OldPCWrite(OldPCWrite), 
