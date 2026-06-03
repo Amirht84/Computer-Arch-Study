@@ -11,7 +11,7 @@ module CU(AdrSrc,MemWrite,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB,ResultSrc,
 	wire CondWrite,Write,Lt_Eq , Not;
 
 	MAIN_CNT MCC(
-		.Op(Op),
+		.OP(Op),
 		.ALUOp(ALUOp),
 		.AdrSrc(AdrSrc),
 		.MemWrite(MemWrite), 
@@ -43,6 +43,6 @@ module CU(AdrSrc,MemWrite,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB,ResultSrc,
 		.Not(Not),
 		.lt(lt),
 		.zer(zer),
-		.PCSrc(PCWrite)
+		.PCWrite(PCWrite)
 	);
 endmodule
