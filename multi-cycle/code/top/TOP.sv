@@ -1,6 +1,6 @@
 module TOP #(parameter MEM_SPACE = 10) (clk);
 	input clk;
-	wire [31:0] MemAdr, InstRD, MemRD, MemWD, MemWrite;
+	wire [31:0] MemAdr, InstRD, MemRD, MemWD ;
 	wire MemWrite, IRWrite;
 	CPU cpu(
 		.MemAdr(MemAdr),
