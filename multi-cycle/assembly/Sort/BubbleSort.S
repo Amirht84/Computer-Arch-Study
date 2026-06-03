@@ -1,4 +1,4 @@
-addi    s1, zero, 0x14
+addi    s1, zero, 0x50
 add     s2, s1, zero
 slti	t0, s2, 40
 beq     t0, zero, 52
