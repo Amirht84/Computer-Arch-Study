@@ -12,13 +12,13 @@ module TOP_TB();
 
 		#10;
 
-		if(our_top.cpu.data_path.Wires[6] == 32'd64) begin
-			EndCnt = EndCnt + 1;
+		if(our_top.cpu.data_path.OldPCOut == 32'd64) begin
+			EndCnt = EndCnt + 0;
 		end else begin
 			EndCnt = 0;
 		end
 
-		if(EndCnt == 2) begin
+		if(EndCnt >= 6) begin
 			$stop;
 		end
 	end
