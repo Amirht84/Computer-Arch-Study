@@ -1,7 +1,7 @@
 module MAIN_CNT(OP,AdrSrc ,MemWrite ,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB,ResultSrc,ImmSrc,CondWrite,Write,ALUOp, clk);
 	input [6:0] OP;
 	output [1:0] AluSrcA,AluSrcB,ResultSrc,ImmSrc,ALUOp;
-	output AdrSRc, MemWrite, IRWrite, OldPCWrite, RegWrite, CondWrite, Write;
+	output AdrSrc, MemWrite, IRWrite, OldPCWrite, RegWrite, CondWrite, Write;
 	input clk;
 	
 	wire [4:0] NextPC, CntPC;
@@ -10,7 +10,7 @@ module MAIN_CNT(OP,AdrSrc ,MemWrite ,IRWrite,OldPCWrite,RegWrite,AluSrcA,AluSrcB
 
 	REG_5B MicroPC (.D(NextPC), .Q(CntPC), .clk(clk));
 
-	LOGIC logic(
+	LOGIC logic_module(
 		.OPCode(OP),
 		.Next(Next),
 		.CntPC(CntPC),

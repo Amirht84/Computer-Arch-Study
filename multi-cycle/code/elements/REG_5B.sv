@@ -1,7 +1,7 @@
-module REG_5B(Q, D, clk);
+module REG_5B(D, Q, clk);
     input clk;
-    input [4:0] Q;
-    output logic [4:0] D;
+    input [4:0] D;
+    output logic [4:0] Q;
 
     initial Q = 0;
     always @(posedge clk) begin

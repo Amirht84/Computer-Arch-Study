@@ -1,4 +1,4 @@
-module CPU_TB();
+module TOP_TB();
 	integer EndCnt = 0;
 
 	reg clk;
@@ -14,7 +14,7 @@ module CPU_TB();
 
 		if(our_top.cpu.data_path.Wires[6] == 32'd64) begin
 			EndCnt = EndCnt + 1;
-		else begin
+		end else begin
 			EndCnt = 0;
 		end
 
