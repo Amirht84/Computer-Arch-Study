@@ -1,15 +1,15 @@
-module REG_FULL(Q, D,clk, en, clr);
+module REG_FULL #(parameter InitValue = 32'b0 ) (Q, D, clk, iz, en);
 	input [31:0] D;
 	output reg [31:0] Q;
-	input clk, en, clr;
+	input clk, en, iz;
 
 	initial begin
-		Q = 32'b0;
+		Q = InitValue;
 	end
-	always@(posedge clk)begin
-        if(clr)
-            D <= 32'b0;
+	always@(posedge clk) begin
+    	if(iz)
+            Q <= InitValue;
 		else if(!en)
-            D <= Q;
+            Q <= D;
 	end
 endmodule
