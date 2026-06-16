@@ -1,18 +1,19 @@
-module PIPE_LINE_REG #(parameter RegisterCount = 3)(Qin, Dout, clr, en, clk);
-    input [31:0] Qin [0:RegisterCount - 1];
-    output [31:0] Dout [0:RegisterCount - 1];
+module PIPE_LINE_REG #(parameter RegisterCount = 1, parameter InitValue = 32'b0 )(Qs, Ds, iz, en, clk);
+    input [31:0] Ds [0:RegisterCount - 1];
+    output [31:0] Qs [0:RegisterCount - 1];
+    input iz, en, clk;
 
     genvar i;
     generate
-        for(i = 0 ; i < N ; i = i + 1)
+        for(i = 0 ; i < RegisternCount ; i = i + 1)
         begin : REGS
 
-        REG_FULL (
+        REG_FULL #(.InitValue(InitValue))(
             .clk(clk),
             .rst(rst),
-            .clr(clr),
-            .D  (Din[i]),
-            .Q  (Qout[i])
+            .iz(iz),
+            .D  (Ds[i]),
+            .Q  (Qs[i])
         );
 
         end
