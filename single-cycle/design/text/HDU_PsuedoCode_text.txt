@@ -1,0 +1,31 @@
+--- Data Hazard
+if(RegWriteM == 1 and RdM == Rs1E and Rs1E != 0 and ResultSrcE == 00)
+	ForwardAE = 10; // M->E
+else if(RegWriteW == 1 and RdW == Rs1E and Rs1E != 0)
+	ForwardAE = 01; // W->E
+
+if(RegWriteM == 1 and RdM == Rs2E and Rs2E != 0 and ResultSrcE == 00)
+	ForwardBE = 10; // M->E
+else if(RegWriteW == 1 and RdW == Rs2E and Rs2E != 0)
+	ForwardBE = 01; // W->E
+
+--- Data Hazard(lw), detect in E
+if(Rs1D == RdE or Rs2D == RdE and ResultSrcE == 01 and RdD != 0 and RdE != 0 and PCSrc != 1)
+	lwStall = 1;
+
+--- Control Hazard, detect in E
+CntStall = PCSrc;
+
+--- lwStall
+if(lwStall) begin
+	IzDE = 1;
+	EnFD = 1; //Deactive
+	EnPC = 1; //Deactive
+end
+
+--- CntStall
+if(CntStall)
+if(lwStall) begin
+	IzFD = 1;
+	IzDE = 1;
+end
