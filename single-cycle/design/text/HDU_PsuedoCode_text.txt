@@ -1,10 +1,10 @@
 --- Data Hazard
-if(RegWriteM == 1 and RdM == Rs1E and Rs1E != 0 and ResultSrcE == 00)
+if(RegWriteM == 1 and RdM == Rs1E and Rs1E != 0 )
 	ForwardAE = 10; // M->E
 else if(RegWriteW == 1 and RdW == Rs1E and Rs1E != 0)
 	ForwardAE = 01; // W->E
 
-if(RegWriteM == 1 and RdM == Rs2E and Rs2E != 0 and ResultSrcE == 00)
+if(RegWriteM == 1 and RdM == Rs2E and Rs2E != 0 )
 	ForwardBE = 10; // M->E
 else if(RegWriteW == 1 and RdW == Rs2E and Rs2E != 0)
 	ForwardBE = 01; // W->E
