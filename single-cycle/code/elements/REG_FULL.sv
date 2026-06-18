@@ -1,6 +1,6 @@
-module REG_FULL #(parameter InitValue = 32'b0 ) (D, Q, Clk, Iz, en);
-	input [31:0] D;
-	output reg [31:0] Q;
+module REG_FULL #(parameter InitValue = 0 , parameter Weadth = 32) (D, Q, Clk, Iz, en);
+	input [Weadth - 1:0] D;
+	output reg [Weadth - 1:0] Q;
 	input Clk, En, Iz;
 
 	initial begin
