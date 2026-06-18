@@ -1,7 +1,7 @@
-module PIPE_LINE_REG #(parameter RegisterCount = 1, parameter InitValue = 32'b0 )(Qs, Ds, iz, en, clk);
+module PIPE_LINE_REG #(parameter RegisterCount = 1, parameter InitValue = 32'b0 )(Qs, Ds, iz, En, clk);
     input [31:0] Ds [0:RegisterCount - 1];
     output [31:0] Qs [0:RegisterCount - 1];
-    input iz, en, clk;
+    input iz, En, clk;
 
     genvar i;
     generate
