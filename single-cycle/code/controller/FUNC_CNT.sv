@@ -1,4 +1,4 @@
-module FUNC_CNT(ALUOp,Func3,Func7,ALUfunc,Lt_Eq,Not);
+module FUNC_CNT(ALUOp,Func3,Func7,ALUFunc,Lt_Eq,Not);
 
 	//////////////////// ALUOp ////////////////////
 	localparam [1:0]lw_sw = 2'b00, b_type = 2'b01 , r_type = 2'b10 , i_type = 2'b11;
@@ -17,7 +17,7 @@ module FUNC_CNT(ALUOp,Func3,Func7,ALUfunc,Lt_Eq,Not);
 	input [1:0] ALUOp;
 	input [2:0] Func3;
 	input [6:0] Func7;
-	output [2:0] ALUfunc;
+	output [2:0] ALUFunc;
 	output Lt_Eq,Not;
 
 	reg [4:0] OutPut;
@@ -63,6 +63,6 @@ module FUNC_CNT(ALUOp,Func3,Func7,ALUfunc,Lt_Eq,Not);
 
 	end
 
-	assign {ALUfunc, Lt_Eq, Not} = OutPut;
+	assign {ALUFunc, Lt_Eq, Not} = OutPut;
 
 endmodule

@@ -3,7 +3,7 @@ module DATA_PATH_TB();
 	reg IsBranch;
 
 	reg PCSrc, WSrc, ALUSrc, AddSrc, ResultSrc, MemWrite, RegWrite, Clk;
-	reg [2:0] ALUfunc;
+	reg [2:0] ALUFunc;
 	reg [1:0] ImmSrc;
 	wire [31:0] InstOut;
 	wire [31:0] InstAdr, MemAdr, InstRD, MemRD, MemWD;
@@ -15,7 +15,7 @@ module DATA_PATH_TB();
  		.ALUSrc(ALUSrc),
  		.AddSrc(AddSrc),
  		.ResultSrc(ResultSrc),
- 		.ALUfunc(ALUfunc),
+ 		.ALUFunc(ALUFunc),
  		.RegWrite(RegWrite),
  		.zer(zer),
  		.lt(lt),
@@ -45,7 +45,7 @@ module DATA_PATH_TB();
 
 	initial begin
 
-		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0; 
+		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUFunc, MemWrite,RegWrite} = 12'b0; 
 
 		#50;
 
@@ -55,52 +55,52 @@ module DATA_PATH_TB();
 		ALUSrc=1;
 		RegWrite=1;
 		WSrc=0;
-		ALUfunc=3'b0;
+		ALUFunc=3'b0;
 		ResultSrc=1;
 		ImmSrc=2'b0;
 		#400;
 
-		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
+		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUFunc, MemWrite,RegWrite} = 12'b0;
 
 		//lw
 		PCSrc=0;
 		ALUSrc=1;
 		RegWrite=1;
 		WSrc=0;
-		ALUfunc=3'b0;
+		ALUFunc=3'b0;
 		ResultSrc=1;
 		ImmSrc=2'b0;
 		#400;
 
-		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
+		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUFunc, MemWrite,RegWrite} = 12'b0;
 
 		//add
 		PCSrc=0;
 		ALUSrc=0;
 		RegWrite=1;
 		WSrc=0;
-		ALUfunc=3'b0;
+		ALUFunc=3'b0;
 		ResultSrc=0;
 		#400;
 
-		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
+		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUFunc, MemWrite,RegWrite} = 12'b0;
 
 		//addi
 		PCSrc=0;
 		ALUSrc=1;
 		RegWrite=1;
 		WSrc=0;
-		ALUfunc=3'b0;
+		ALUFunc=3'b0;
 		ResultSrc=0;
 		ImmSrc=2'b0;
 		#400;
 
-		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
+		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUFunc, MemWrite,RegWrite} = 12'b0;
 
 		//blt
 		ALUSrc=0;
 		RegWrite=0;
-		ALUfunc=3'b101;
+		ALUFunc=3'b101;
 		AddSrc=0;
 		ImmSrc=2'b10;
 		#10;
@@ -113,25 +113,25 @@ module DATA_PATH_TB();
 		end
 		#400;
 
-		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
+		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUFunc, MemWrite,RegWrite} = 12'b0;
 
 		//addi
 		PCSrc=0;
 		ALUSrc=1;
 		RegWrite=1;
 		WSrc=0;
-		ALUfunc=3'b0;
+		ALUFunc=3'b0;
 		ResultSrc=0;
 		ImmSrc=2'b0;
 		#400;
 
-		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
+		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUFunc, MemWrite,RegWrite} = 12'b0;
 		if(IsBranch == 1'b1) begin
 			//sw
 			PCSrc=0;
 			ALUSrc=1;
 			RegWrite=0;
-			ALUfunc=3'b0;
+			ALUFunc=3'b0;
 			ImmSrc=2'b01;
 			MemWrite=1;
 			#400;
@@ -146,13 +146,13 @@ module DATA_PATH_TB();
 			#400;
 		end
 
-		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, MemWrite,RegWrite} = 12'b0;
+		{PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUFunc, MemWrite,RegWrite} = 12'b0;
 
 		//sw
 		PCSrc=0;
 		ALUSrc=1;
 		RegWrite=0;
-		ALUfunc=3'b0;
+		ALUFunc=3'b0;
 		ImmSrc=2'b01;
 		MemWrite=1;
 		#400;
