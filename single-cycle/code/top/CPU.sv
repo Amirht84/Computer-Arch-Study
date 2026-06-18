@@ -1,48 +1,81 @@
-module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite, Clk);
-	wire [6:0] Func7, Op;
-	wire [2:0] Func3;
-	wire PCSrc,WSrc,RegWrite,ALUSrc,ResultSrc,AddSrc,zer,lt;
-	wire [1:0] ImmSrc;
-	wire [2:0] ALUFunc;
+module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite,Iz , En, Clk);
 	output [31:0] InstAdr, MemAdr, MemWD;
-	output MemWrite;
+	output MemWrite,Iz,En;
 	input [31:0] InstRD, MemRD;
 	input Clk ;
-
+	wire [6:0] Func7, Op;
+	wire [2:0] Func3,ALUFuncE;
+	wire PCSrcE,RegWriteW,ALUSrcE,ResultSrcW,AddSrcE,zer,lt,EnPC,EnFD,IzDE;
+	wire [1:0] ImmSrcD,ForwardSrcA,ForwardSrcB;
+	wire [4:0] RdD,Rs1D,Rs2D,Rs1E,Rs2E,RdE,RdM,RdW;
+	assign Iz=IzFD;
+	assign En=EnFD;
 	assign Func7= InstRD[31:25];
 	assign Func3= InstRD[14:12];
 	assign Op= InstRD[6:0];
 	CU CCU(
-		.PCSrc(PCSrc),
-		.WSrc(WSrc),
-		.RegWrite(RegWrite),
-		.ImmSrc(ImmSrc),
-		.ALUSrc(ALUSrc),
-		.ALUFunc(ALUFunc),
-		.MemWrite(MemWrite),
-		.ResultSrc(ResultSrc),
-		.AddSrc(AddSrc),
+		.PCSrcE(PCSrcE),
+		.RegWriteW(RegWriteW),
+		.ImmSrcD(ImmSrcD),
+		.ALUSrcE(ALUSrcE),
+		.ALUFuncE(ALUFuncE),
+		.MemWriteM(MemWriteM),
+		.ResultSrcW(ResultSrcW),
+		.AddSrcE(AddSrcE),
 		.Func3(Func3),
 		.Func7(Func7),
 		.Op(Op),
 		.zer(zer),
-		.lt(lt)
+		.lt(lt),
+		.IzDE(IzDE)
 	);
 	DATA_PATH DP(
-		.PCSrc(PCSrc),
-		.WSrc(WSrc),
-		.ImmSrc(ImmSrc),
-		.ALUSrc(ALUSrc),
-		.AddSrc(AddSrc),
-		.ResultSrc(ResultSrc),
-		.ALUFunc(ALUFunc),
-		.RegWrite(RegWrite),
-		.zer(zer),
-		.lt(lt),
-		.InstRD(InstRD),
-		.MemRD(MemRD),
-		.InstAdr(InstAdr),
-		.MemAdr(MemAdr),
-		.MemWD(MemWD),
-		.Clk(Clk));
+		.PCSrcE(PCSrcE),
+		.EnPC(EnPC),
+		.IzFD(IzFD),
+		.EnFD(EnFD),
+		.RegWriteW(RegWriteW),
+		.ImmSrcD(ImmSrcD),
+		.RdD(RdD),
+		.InstAdrF(InstAdr),
+		.Rs1D(Rs1D),
+		.Rs2D(Rs2D),
+		.IzDE(IzDE),
+		.ForwardSrcA(ForwardSrcA),
+		.ForwardSrcB(ForwardSrcB),
+		.AddSrcE(AddSrcE),
+		.AluSrcE(ALUSrcE),
+		.AluFuncE(ALUFuncE),
+		.InstRDD(InstRD),
+		.RdE(RdE),
+		.Rs1E(Rs1E),
+		.Rs2E(Rs2E),
+		.Zer(zer),
+		.Lt(lt),
+		.RdM(RdM),
+		.MemAdrM(MemAdr),
+		.MemWDM(MemWD), 
+		.MemRDW(MemRD),
+		.ResultSrcW(ResultSrcW),
+		.RdW(RdW)
+		);
+	HDU hdu(
+		.RegWriteM(RegWriteM),
+	 	.RdM(RdM), 
+		.Rs1E(R),
+		.Rs2E(Rs2E),
+		.ResultSrcE(ResultSrcE),
+		.RdW(RdW),
+		.RegWriteW(RegWriteW),
+		.RdE(RdE),
+		.Rs1D(Rs1D),
+		.Rs2D(Rs2D),
+		.PCsrc(PCsrc),
+		.IzDE(IzDE),
+		.IzFD(IzFD), 
+		.EnFD(EnFD), 
+		.EnPC(EnPC),
+		.ForwardASrcE(ForwardSrcA),
+		.ForwardBSrcE(ForwardSrcB)
+		 );
 endmodule
