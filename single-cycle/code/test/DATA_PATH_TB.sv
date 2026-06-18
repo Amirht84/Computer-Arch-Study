@@ -2,7 +2,7 @@ module DATA_PATH_TB();
 	
 	reg IsBranch;
 
-	reg PCSrc, WSrc, ALUSrc, AddSrc, ResultSrc, MemWrite, RegWrite, clk;
+	reg PCSrc, WSrc, ALUSrc, AddSrc, ResultSrc, MemWrite, RegWrite, Clk;
 	reg [2:0] ALUfunc;
 	reg [1:0] ImmSrc;
 	wire [31:0] InstOut;
@@ -24,7 +24,7 @@ module DATA_PATH_TB();
 		.MemWD(MemWD),
 		.InstRD(InstRD),
 		.MemRD(MemRD),
- 		.clk(clk)
+ 		.Clk(Clk)
 	);
 	MEM #(.MEM_SPACE(10), .INST_SPACE(10)) mem(
 			.InstAdr(InstAdr),
@@ -33,14 +33,14 @@ module DATA_PATH_TB();
 			.InstRD(InstRD),
 			.MemRD(MemRD),
 			.we(MemWrite),
-			.clk(clk)
+			.Clk(Clk)
 		);
 
 	initial begin
-		clk = 0;
+		Clk = 0;
 	end
 	always begin 
-		#200 clk = ~clk;
+		#200 Clk = ~Clk;
 	end
 
 	initial begin

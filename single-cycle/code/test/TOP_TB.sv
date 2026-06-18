@@ -1,14 +1,14 @@
 module CPU_TB();
 	integer EndCnt = 0;
 
-	reg clk;
+	reg Clk;
 
-	TOP #(.MEM_SPACE(10), .INST_SPACE(20)) our_top(clk);
+	TOP #(.MEM_SPACE(10), .INST_SPACE(20)) our_top(Clk);
 
-	initial clk = 0;
+	initial Clk = 0;
 	always begin
 		#200;
-		clk = ~clk;
+		Clk = ~Clk;
 
 		#10;
 

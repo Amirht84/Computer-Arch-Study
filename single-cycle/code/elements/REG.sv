@@ -1,12 +1,12 @@
-module REG(D, Q, clk);
+module REG(D, Q, Clk);
 	input [31:0] D;
 	output reg [31:0] Q;
-	input clk;
+	input Clk;
 
 	initial begin
 		Q = 32'b0;
 	end
-	always@(posedge clk)begin
+	always@(posedge Clk)begin
 		Q <= D;
 	end
 endmodule

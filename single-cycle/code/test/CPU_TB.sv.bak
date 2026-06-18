@@ -1,11 +1,11 @@
 module CPU_TB();
 	integer EndCnt = 0;
 
-	reg clk;
+	reg Clk;
 
-	initial clk = 0;
-	always #200 clk = ~clk;
-	CPU OUR_CPU(clk);
+	initial Clk = 0;
+	always #200 Clk = ~Clk;
+	CPU OUR_CPU(Clk);
 	always begin
 		#207;
 		if(OUR_CPU.DP.Wires[1] == 32'd64) begin
