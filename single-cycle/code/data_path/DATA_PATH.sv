@@ -47,9 +47,16 @@ module DATA_PATH(
 	
 	IMM_EXT imm_ext(.In(InstRDD), .Out(ImmExtOutD), .sel(ImmSrcD));
 
-	PIPE_LINE_REG #(.RegisterCount(8)) de_reg (
-		.Ds({RD1OutD, RD2OutD, PCOutD, RdD, Rs1D, Rs2D, ImmExtOutD, IncOutD}),
-		.Qs({RD1OutE, RD2OutE, PCOutE, RdE, Rs1E, Rs2E, ImmExtOutE, IncOutE}),
+	PIPE_LINE_REG #(.RegisterCount(5)) de_reg (
+		.Ds({RD1OutD, RD2OutD, PCOutD, ImmExtOutD, IncOutD}),
+		.Qs({RD1OutE, RD2OutE, PCOutE, ImmExtOutE, IncOutE}),
+		.Iz(IzDE),
+		.En(1'b1),
+		.Clk(Clk)
+	);
+	PIPE_LINE_REG #(.RegisterCount(3), .Weadth(5)) de_reg_5 (
+		.Ds({RdD, Rs1D, Rs2D}),
+		.Qs({RdE, Rs1E, Rs2E}),
 		.Iz(IzDE),
 		.En(1'b1),
 		.Clk(Clk)
@@ -67,9 +74,17 @@ module DATA_PATH(
 
 	ALU alu(.A(ForwardSrcAOutE), .B(AluSrcOutE), .Y(AluOutE), .f(AluFuncE), .zer(Zer), .lt(Lt));
 
-	PIPE_LINE_REG #(.RegisterCout(4)) em_reg (
-		.Ds({AluOutE, ForwardSrcBOutE, RdE, IncOutE}),
-		.Qs({AluOutM, ForwardSrcBOutM, RdM, IncOutM}),
+	PIPE_LINE_REG #(.RegisterCout(3)) em_reg (
+		.Ds({AluOutE, ForwardSrcBOutE, IncOutE}),
+		.Qs({AluOutM, ForwardSrcBOutM, IncOutM}),
+		.Iz(1'b0),
+		.En(1'b1),
+		.Clk(Clk)
+	);
+	
+	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(5)) de_reg_5 (
+		.Ds({RdE}),
+		.Qs({RdM}),
 		.Iz(1'b0),
 		.En(1'b1),
 		.Clk(Clk)
@@ -81,9 +96,16 @@ module DATA_PATH(
 	assign MemAdrM = AluOutM;
 	assign MemWDM = ForwardSrcBOutM;
 
-	PIPE_LINE_REG #(.RegisterCount(3)) mw_reg (
-		.Ds({AluOutM, RdM, IncOutM}),
-		.Qs({AluOutW, RdW, IncOutW}),
+	PIPE_LINE_REG #(.RegisterCount(2)) mw_reg (
+		.Ds({AluOutM, IncOutM}),
+		.Qs({AluOutW, IncOutW}),
+		.Iz(1'b0),
+		.En(1'b1),
+		.Clk(Clk)
+	);
+	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(5)) de_reg_5 (
+		.Ds({RdM}),
+		.Qs({RdW}),
 		.Iz(1'b0),
 		.En(1'b1),
 		.Clk(Clk)
