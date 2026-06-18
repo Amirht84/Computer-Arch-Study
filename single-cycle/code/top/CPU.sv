@@ -3,7 +3,7 @@ module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite, Clk);
 	wire [2:0] Func3;
 	wire PCSrc,WSrc,RegWrite,ALUSrc,ResultSrc,AddSrc,zer,lt;
 	wire [1:0] ImmSrc;
-	wire [2:0] ALUfunc;
+	wire [2:0] ALUFunc;
 	output [31:0] InstAdr, MemAdr, MemWD;
 	output MemWrite;
 	input [31:0] InstRD, MemRD;
@@ -18,7 +18,7 @@ module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite, Clk);
 		.RegWrite(RegWrite),
 		.ImmSrc(ImmSrc),
 		.ALUSrc(ALUSrc),
-		.ALUfunc(ALUfunc),
+		.ALUFunc(ALUFunc),
 		.MemWrite(MemWrite),
 		.ResultSrc(ResultSrc),
 		.AddSrc(AddSrc),
@@ -35,7 +35,7 @@ module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite, Clk);
 		.ALUSrc(ALUSrc),
 		.AddSrc(AddSrc),
 		.ResultSrc(ResultSrc),
-		.ALUfunc(ALUfunc),
+		.ALUFunc(ALUFunc),
 		.RegWrite(RegWrite),
 		.zer(zer),
 		.lt(lt),
