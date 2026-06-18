@@ -1,81 +1,97 @@
-module DATA_PATH(PCSrc, WSrc, ImmSrc, ALUSrc, AddSrc, ResultSrc, ALUfunc, RegWrite, zer, lt, MemAdr, MemRD, MemWD, InstAdr, InstRD, clk);
+module DATA_PATH(
+	PCSrcE, EnPC, IzFD, EnFD,
+	RegWriteW, ImmSrcD, RdD,  InstAdrF, Rs1D, Rs2D, IzDE,
+	ForwardSrcA, ForwardSrcB, AddSrcE, AluSrcE, AluFuncE, InstRDD, RdE, Rs1E, Rs2E, Zer, Lt,
+	RdM, MemAdrM, MemWDM, 
+	MemRDW, ResultSrcW, RdW);
 
-	input PCSrc, WSrc, ALUSrc, AddSrc, ResultSrc, RegWrite, clk;
-	input [1: 0] ImmSrc;
-	input [2:0] ALUfunc;
-	input [31:0] MemRD, InstRD;
-	output [31:0] InstAdr, MemAdr, MemWD;
-	output zer, lt;
+	/////////// Control Signals	///////////
+	input AluSrcE, AddSrcE, ResultSrcW, RegWriteW;
+	input [2:0] AluFuncE;
+	input [1:0] ImmSrcD
+	/////////// Hazard Signals	///////////
+	input [1:0] ForwardSrcA, ForwardSrcB;
+	input IzFD, IzDE, EnFD;
+	input Clk;
+	input PCSrcE, EnPC;
+	output [4:0] RdD, Rs1D, Rs2D, RdE, Rs1E, Rs2E, RdM, RdW;
 
+	input [31:0] InstRDD, MemRDW;
+	output [31:0] InstAdrF, MemAdrM, MemWDM;
+	output Zer, Lt;
 	
-	wire [31:0] Wires [0:13];
+	////////////	Stage: Instruction Fetch	#F	////////////
+	wire [31:0] IncOutF, PCSrcOutF, PCOutF;
+	REG_FULL pc(.D(PCSrcOutF), .Q(PCOutF), .Clk(Clk), .En(EnPC), .Iz(1'b0));
+	MUX_2IN pc_src(.A(IncOutF), .B(AddOutE), .Y(PCSrcOutF), .sel(PCSrcE));
+	INC_4 inc_4(.A(PCSrcOutF), .Y(IncOutF));
+	assign InstAdrF = PCSrcOutF;
 
-	assign MemAdr = Wires[4];
-	assign MemWD = Wires[8];
-	assign InstAdr = Wires[1];
-	assign Wires[5] = MemRD;
-	assign Wires[2] = InstRD;
+	PIPE_LINE_REG #(.RegisterCount(2)) fd_reg (.Qs({PCOutF, IncOutF}), .Ds({PCOutD, IncOutD}), .Iz(IzFD), .En(EnFD), .Clk(Clk));
 
+	////////////	Stage: Instruction Decode	#D	////////////
+	wire [31:0] IncOutD, RD1OutD, RD2OutD, ImmExtOutD, ImmSrcD, PCOutD;
+	assign Rs1D = InstRDD[19:15];
+	assign Rs2D = InstRDD[24:20];
+	assign RdD = InstRDD[11:7];
 
-	MUX_2IN MUX_1(.A(Wires[13]), .B(Wires[12]), .Y(Wires[0]), .sel(PCSrc)); //sel 0 will A, and sel 1 will B
-
-	REG PC(.D(Wires[0]), .Q(Wires[1]), .clk(clk));
-
-	INC_4 PLUS4(.A(Wires[1]), .Y(Wires[13]));
-
-
-	REG_FILE RF(
-		.Addr1(InstRD[19:15]), 
-		.Addr2(InstRD[24:20]),
-		.AddrW(InstRD[11:7]), 
-		.WDat(Wires[7]),
-		.RDat1(Wires[3]),
-		.RDat2(Wires[8]),
-		.we(RegWrite),
-		.clk(clk)
-	);
+	REG_FILE reg_file(
+		.Addr1(Rs1D),
+		.Addr2(Rs2D),
+		.AddrW(RdW),
+		.WDat(ResultSrcOutW),
+		.RDat1(RD1OutD),
+		.RDat2(RD2OutD),
+		.we(RegWriteW),
+		.Clk(Clk));
 	
-	MUX_2IN MUX_2(.A(Wires[8]), .B(Wires[10]), .Y(Wires[9]), .sel(ALUSrc));
+	IMM_EXT imm_ext(.In(InstRDD), .Out(ImmExtOutD), .sel(ImmSrcD));
 
-	ALU OUR_ALU(
-		.A(Wires[3]),
-		.B(Wires[9]),
-		.Y(Wires[4]),
-		.zer(zer),
-		.lt(lt),
-		.f(ALUfunc)
+	PIPE_LINE_REG #(.RegisterCount(8)) de_reg (
+		.Ds({RD1OutD, RD2OutD, PCOutD, RdD, Rs1D, Rs2D, ImmExtOutD, IncOutD}),
+		.Qs({RD1OutE, RD2OutE, PCOutE, RdE, Rs1E, Rs2E, ImmExtOutE, IncOutE}),
+		.Iz(IzDE),
+		.En(1'b1),
+		.Clk(Clk)
+	);
+	////////////	Stage:		Exectution		#E	////////////
+	wire [31:0] AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, AddSrcOutE, AluOutE;
+
+	MUX_4IN forward_src_a (.A(RD1OutD), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcAOutE), .sel(ForwardSrcA));
+	MUX_4IN forward_src_b (.A(RD2OutD), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcBOutE), .sel(ForwardSrcB));
+
+	MUX_2IN alu_src(.A(ForwardSrcBOutE), .B(ImmExtOutE), .Y(AluSrcOutE), .sel(AluSrcE));
+	MUX_2IN add_src(.A(PCOutE), .B(RD1OutE), .Y(AddSrcOutE), .sel(AddSrcE));
+
+	ADDER adder(.A(AddSrcOutE), .B(ImmExtOutE), .Y(AddOutE));
+
+	ALU alu(.A(ForwardSrcAOutE), .B(AluSrcOutE), .Y(AluOutE), .f(AluFuncE), .zer(Zer), .lt(Lt));
+
+	PIPE_LINE_REG #(.RegisterCout(4)) em_reg (
+		.Ds({AluOutE, ForwardSrcBOutE, RdE, IncOutE}),
+		.Qs({AluOutM, ForwardSrcBOutM, RdM, IncOutM}),
+		.Iz(1'b0),
+		.En(1'b1),
+		.Clk(Clk)
 	);
 
-	MUX_2IN MUX_3(
-		.A(Wires[4]),
-		.B(Wires[5]),
-		.Y(Wires[6]),
-		.sel(ResultSrc)
-	);
-
-	MUX_2IN MUX_4(
-		.A(Wires[6]),
-		.B(Wires[13]),
-		.Y(Wires[7]),
-		.sel(WSrc)
-	);
-
-	IMM_EXT OUR_IMM_EXT(
-		.In(InstRD),
-		.Out(Wires[10]),
-		.sel(ImmSrc)
-	);
+	////////////	Stage:		Memory Access	#M	////////////
+	wire [31:0] AluOutM, IncOutM, ForwardSrcBOutM;
 	
-	MUX_2IN MUX_5(
-		.A(Wires[1]),
-		.B(Wires[3]),
-		.Y(Wires[11]),
-		.sel(AddSrc)
+	assign MemAdrM = AluOutM;
+	assign MemWDM = ForwardSrcBOutM;
+
+	PIPE_LINE_REG #(.RegisterCount(3)) mw_reg (
+		.Ds({AluOutM, RdM, IncOutM}),
+		.Qs({AluOutW, RdW, IncOutW}),
+		.Iz(1'b0),
+		.En(1'b1),
+		.Clk(Clk)
 	);
 
-	ADDER OUR_ADDER(
-		.A(Wires[10]),
-		.B(Wires[11]),
-		.Y(Wires[12])
-	);
+	////////////	Stage:		Write Back		#W	////////////
+	wire RegWriteW, AluOutW, IncOutW;
+	wire [31:0] ResultSrcOutW;
+
+	MUX_4IN result_src (.A(AluOutW), .B(MemRDW), .C(IncOutW), .D(32'b0), .sel(ResultSrcW), .Y(ReseultSrcOutW));
 endmodule

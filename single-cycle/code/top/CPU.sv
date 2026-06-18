@@ -1,4 +1,4 @@
-module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite, clk);
+module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite, Clk);
 	wire [6:0] Func7, Op;
 	wire [2:0] Func3;
 	wire PCSrc,WSrc,RegWrite,ALUSrc,ResultSrc,AddSrc,zer,lt;
@@ -7,7 +7,7 @@ module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite, clk);
 	output [31:0] InstAdr, MemAdr, MemWD;
 	output MemWrite;
 	input [31:0] InstRD, MemRD;
-	input clk ;
+	input Clk ;
 
 	assign Func7= InstRD[31:25];
 	assign Func3= InstRD[14:12];
@@ -44,5 +44,5 @@ module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite, clk);
 		.InstAdr(InstAdr),
 		.MemAdr(MemAdr),
 		.MemWD(MemWD),
-		.clk(clk));
+		.Clk(Clk));
 endmodule

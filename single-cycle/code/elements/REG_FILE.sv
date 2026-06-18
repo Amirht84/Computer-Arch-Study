@@ -1,4 +1,4 @@
-module REG_FILE(Addr1, Addr2, AddrW, WDat, RDat1, RDat2, we, clk);
+module REG_FILE(Addr1, Addr2, AddrW, WDat, RDat1, RDat2, we, Clk);
 	parameter DATA_SPACE = 10;//words
 	localparam STACK_START = (DATA_SPACE - 1) * 4;
 	localparam SP_IND = 2;
@@ -9,7 +9,7 @@ module REG_FILE(Addr1, Addr2, AddrW, WDat, RDat1, RDat2, we, clk);
 	input [31:0] WDat;
 
 	input we;
-	input clk;
+	input Clk;
 
 	output [31:0] RDat1;
 	output [31:0] RDat2;
@@ -23,7 +23,7 @@ module REG_FILE(Addr1, Addr2, AddrW, WDat, RDat1, RDat2, we, clk);
 		RegMem[SP_IND] = STACK_START;
 	end
 
-	always @(posedge clk) begin
+	always @(posedge Clk) begin
 		if (we && AddrW != 0) begin
 			RegMem[AddrW] <= WDat;
 		end
