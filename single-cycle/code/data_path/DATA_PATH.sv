@@ -1,23 +1,29 @@
-module DATA_PATH();
+module DATA_PATH(
+	PCSrcE, EnPC, IzFD, EnFD,
+	RegWriteW, ImmSrcD, RdD,  InstAdrF, Rs1D, Rs2D, IzDE,
+	ForwardSrcA, ForwardSrcB, AddSrcE, AluSrcE, AluFuncE, InstRDD, RdE, Rs1E, Rs2E, Zer, Lt,
+	RdM, MemAdrM, MemWDM, 
+	MemRDW, ResultSrcW, RdW);
 
 	/////////// Control Signals	///////////
-	wire AluSrcE, AddSrcE, ResultSrcW;
-	wire [2:0] AluFuncE;
+	input AluSrcE, AddSrcE, ResultSrcW, RegWriteW;
+	input [2:0] AluFuncE;
+	input [1:0] ImmSrcD
 	/////////// Hazard Signals	///////////
 	input [1:0] ForwardSrcA, ForwardSrcB;
 	input IzFD, IzDE, EnFD;
 	input Clk;
-	input PCSrcF, EnPC;
-
+	input PCSrcE, EnPC;
+	output [4:0] RdD, Rs1D, Rs2D, RdE, Rs1E, Rs2E, RdM, RdW;
 
 	input [31:0] InstRDD, MemRDW;
-	output [31:0] InstAdrF, InstOut, MemAdrM, MemWDM;
+	output [31:0] InstAdrF, MemAdrM, MemWDM;
 	output Zer, Lt;
 	
 	////////////	Stage: Instruction Fetch	#F	////////////
 	wire [31:0] IncOutF, PCSrcOutF, PCOutF;
 	REG_FULL pc(.D(PCSrcOutF), .Q(PCOutF), .Clk(Clk), .En(EnPC), .Iz(1'b0));
-	MUX_2IN pc_src(.A(IncOutF), .B(AddOutE), .Y(PCSrcOutF), .sel(PCSrc));
+	MUX_2IN pc_src(.A(IncOutF), .B(AddOutE), .Y(PCSrcOutF), .sel(PCSrcE));
 	INC_4 inc_4(.A(PCSrcOutF), .Y(IncOutF));
 	assign InstAdrF = PCSrcOutF;
 
@@ -25,7 +31,6 @@ module DATA_PATH();
 
 	////////////	Stage: Instruction Decode	#D	////////////
 	wire [31:0] IncOutD, RD1OutD, RD2OutD, ImmExtOutD, ImmSrcD, PCOutD;
-	wire [4:0] Rs1D, Rs2D, RdD;
 	assign Rs1D = InstRDD[19:15];
 	assign Rs2D = InstRDD[24:20];
 	assign RdD = InstRDD[11:7];
@@ -51,7 +56,7 @@ module DATA_PATH();
 	);
 	////////////	Stage:		Exectution		#E	////////////
 	wire [31:0] AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, AddSrcOutE, AluOutE;
-	wire [4:0] RdE;
+
 	MUX_4IN forward_src_a (.A(RD1OutD), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcAOutE), .sel(ForwardSrcA));
 	MUX_4IN forward_src_b (.A(RD2OutD), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcBOutE), .sel(ForwardSrcB));
 
@@ -72,7 +77,6 @@ module DATA_PATH();
 
 	////////////	Stage:		Memory Access	#M	////////////
 	wire [31:0] AluOutM, IncOutM, ForwardSrcBOutM;
-	wire [4:0] RdM;
 	
 	assign MemAdrM = AluOutM;
 	assign MemWDM = ForwardSrcBOutM;
@@ -87,7 +91,6 @@ module DATA_PATH();
 
 	////////////	Stage:		Write Back		#W	////////////
 	wire RegWriteW, AluOutW, IncOutW;
-	wire [4:0] RdW;
 	wire [31:0] ResultSrcOutW;
 
 	MUX_4IN result_src (.A(AluOutW), .B(MemRDW), .C(IncOutW), .D(32'b0), .sel(ResultSrcW), .Y(ReseultSrcOutW));
