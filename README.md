@@ -43,8 +43,11 @@ It is designed by [Amir](https://github.com/Amirht84) and [Anita](https://github
 - [**main:**](https://github.com/Amirht84/Computer-Arch-Study.git)
   contains the final work
 - [**single-cycle:**](https://github.com/Amirht84/Computer-Arch-Study/tree/single-cycle.git)
-  Single-Cycly Mircro-Arch is implemented in this branch
+  Single-Cycly Mircro-Arch is implemented in this branch.
 - [**multi-cycle:**](https://github.com/Amirht84/Computer-Arch-Study/tree/multi-cycle.git)
+  Single-Cycly Mircro-Arch is implemented in this branch.
+- [**pipe-line:**](https://github.com/Amirht84/Computer-Arch-Study/tree/multi-cycle.git)
+  Pipe-Line Mircro-Arch is implemented in this branch.
 
 ## Implemented Instructions:
 
