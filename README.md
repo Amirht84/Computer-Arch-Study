@@ -17,9 +17,11 @@ It is designed by [Amir](https://github.com/Amirht84) and [Anita](https://github
 ### Directories
 
 - [**ISA:**](https://github.com/Amirht84/Computer-Arch-Study/tree/main/ISA)
-  Information used from RISC-V ISA in the designed is documented here.
+  Information used from RISC-V ISA in this project is documented here.
 - [**single-cycle:**](https://github.com/Amirht84/Computer-Arch-Study/tree/main/single-cycle)
-  Single-Cycle Micro-Arch is places here, contains Verilog HDL codes, designs, etc.
+  Single-Cycle Micro-Arch is placed here, contains Verilog HDL codes, designs, etc.
+- [**multi-cycle:**](https://github.com/Amirht84/Computer-Arch-Study/tree/main/multi-cycle)
+  Multi-Cycle Micro-Arch is placed here, contains Verilog HDL codes, designs, etc.
 - #### Sub Directories:
   Also each Micro Architecture directory (i.g. [single-cycle](https://github.com/Amirht84/Computer-Arch-Study/tree/main/single-cycle)) has some sub-directories which is same in all three Micro Architectures:
   - **design:** Contains designs on paper or table, the first step of implementation.
