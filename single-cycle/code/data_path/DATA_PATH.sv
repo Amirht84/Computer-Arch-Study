@@ -1,9 +1,12 @@
 module DATA_PATH(
 	PCSrcE, EnPC, IzFD, EnFD,
 	RegWriteW, ImmSrcD, RdD,  InstAdrF, Rs1D, Rs2D, IzDE,
-	ForwardSrcA, ForwardSrcB, AddSrcE, AluSrcE, AluFuncE, InstRDD, RdE, Rs1E, Rs2E, Zer, Lt,
+	ForwardSrcA, ForwardSrcB, AddSrcE, AluSrcE, AluFuncE, InstRDF, RdE, Rs1E, Rs2E, Zer, Lt,
 	RdM, MemAdrM, MemWDM, 
-	MemRDW, ResultSrcW, RdW);
+	MemRDM, ResultSrcW, RdW);
+
+	/////////// No Operation Instruction Code ///////////
+	localparam Nop = 32'b00000000000000000000000000110011;
 
 	/////////// Control Signals	///////////
 	input AluSrcE, AddSrcE, ResultSrcW, RegWriteW;
@@ -16,7 +19,7 @@ module DATA_PATH(
 	input PCSrcE, EnPC;
 	output [4:0] RdD, Rs1D, Rs2D, RdE, Rs1E, Rs2E, RdM, RdW;
 
-	input [31:0] InstRDD, MemRDW;
+	input [31:0] InstRDF, MemRDM;
 	output [31:0] InstAdrF, MemAdrM, MemWDM;
 	output Zer, Lt;
 	
@@ -54,6 +57,13 @@ module DATA_PATH(
 		.En(1'b1),
 		.Clk(Clk)
 	);
+	PIPE_LINE_REG #(.InitValue(Nop)) de_reg_nop (
+		.Ds({InstRDF}),
+		.Qs({InstRDD}),
+		.Iz(IzDE),
+		.En(1'b1),
+		.Clk(Clk)
+	);
 	PIPE_LINE_REG #(.RegisterCount(3), .Weadth(5)) de_reg_5 (
 		.Ds({RdD, Rs1D, Rs2D}),
 		.Qs({RdE, Rs1E, Rs2E}),
@@ -62,7 +72,7 @@ module DATA_PATH(
 		.Clk(Clk)
 	);
 	////////////	Stage:		Exectution		#E	////////////
-	wire [31:0] AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, AddSrcOutE, AluOutE;
+	wire [31:0] AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, AddSrcOutE, AluOutE, InstRDD;
 
 	MUX_4IN forward_src_a (.A(RD1OutD), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcAOutE), .sel(ForwardSrcA));
 	MUX_4IN forward_src_b (.A(RD2OutD), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcBOutE), .sel(ForwardSrcB));
@@ -97,8 +107,8 @@ module DATA_PATH(
 	assign MemWDM = ForwardSrcBOutM;
 
 	PIPE_LINE_REG #(.RegisterCount(2)) mw_reg (
-		.Ds({AluOutM, IncOutM}),
-		.Qs({AluOutW, IncOutW}),
+		.Ds({AluOutM, IncOutM, MemRDM}),
+		.Qs({AluOutW, IncOutW, MemRDW}),
 		.Iz(1'b0),
 		.En(1'b1),
 		.Clk(Clk)
@@ -112,7 +122,7 @@ module DATA_PATH(
 	);
 
 	////////////	Stage:		Write Back		#W	////////////
-	wire RegWriteW, AluOutW, IncOutW;
+	wire RegWriteW, AluOutW, IncOutW, MemRDW;
 	wire [31:0] ResultSrcOutW;
 
 	MUX_4IN result_src (.A(AluOutW), .B(MemRDW), .C(IncOutW), .D(32'b0), .sel(ResultSrcW), .Y(ReseultSrcOutW));
