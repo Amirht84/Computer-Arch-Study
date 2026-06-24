@@ -1,15 +1,15 @@
-module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,AddSrcE , Func3, Func7, OpD, zer, lt, IzDE);
+module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,AddSrcE , Func3, Func7, OpD, zer, lt, IzDE , Clk);
 	input [6:0] Func7,OpD;
 	input [2:0] Func3;
-	input zer,lt, IzDE;
+	input zer,lt, IzDE , Clk;
 	output PCSrcE, RegWriteW, ALUSrcE, MemWriteM , AddSrcE;
 	output [1:0] ResultSrcW, ImmSrcD;
 	output [2:0] ALUFuncE;
 
 
 	////////////	Stage:		Memory Access	#D	////////////
-	wire RegWriteD, AddSrcD, BranchD, JumpD, MemWriteD, ResultSrcD, Lt_EqD, NotD;
-	wire [1:0] ALUOpD;
+	wire RegWriteD, AddSrcD, BranchD, JumpD, MemWriteD, Lt_EqD, NotD;
+	wire [1:0] ALUOpD, ResultSrcD,ALUSrcD;
 	wire [2:0] ALUFuncD;
 
 	MAIN_CNT main_cnt(
@@ -31,7 +31,7 @@ module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,
 		.Func7(Func7),
 		.ALUFunc(ALUFuncD),
 		.Lt_Eq(Lt_EqD),
-		.Not(Not)
+		.Not(NotD)
 	);
 
 	PIPE_LINE_REG #(.RegisterCount(8), .Weadth(1)) de_reg_1(
@@ -58,7 +58,7 @@ module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,
 		.En(1'b1)
 	);
 	////////////	Stage:		Memory Access	#E	////////////
-	wire RegWriteE, AddSrcE, BranchE, JumpE, MemWriteE, NotE, Lt_EqE, PCSrcE, ResultSrcE;
+	wire RegWriteE, BranchE, JumpE, MemWriteE, NotE, Lt_EqE;
 	wire [1:0] ResultSrcE;
 
 	PC_CNT pc_cnt(
