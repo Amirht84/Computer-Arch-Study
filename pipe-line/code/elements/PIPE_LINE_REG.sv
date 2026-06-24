@@ -5,7 +5,7 @@ module PIPE_LINE_REG #(parameter RegisterCount = 1, parameter InitValue = 32'b0,
 
     genvar i;
     generate
-        for(i = 0 ; i < RegisternCount ; i = i + 1)
+        for(i = 0 ; i < RegisterCount ; i = i + 1)
         begin : REGS
 
         REG_FULL #(.InitValue(InitValue), .Weadth(Weadth))(
