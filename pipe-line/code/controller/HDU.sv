@@ -1,4 +1,4 @@
-module HDU (RegWriteM, RdM , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , RdE , Rs1D , Rs2D , PCsrc , IzDE , IzFD , EnFD , EnPC , ForwardASrcE , ForwardBSrcE );
+module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , RdE , Rs1D , Rs2D , PCSrc , IzDE , IzFD , EnFD , EnPC , ForwardASrcE , ForwardBSrcE );
   input [1:0] ResultSrcE ;
   input RdM,Rs1E,Rs2E,RdW,RdE,Rs1D,Rs2D,RegWriteM,RegWriteW;
   output [1:0] ForwardASrcE, ForwardBSrcE;
