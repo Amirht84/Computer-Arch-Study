@@ -1,6 +1,6 @@
 module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , RdE , Rs1D , Rs2D , PCSrc , IzDE , IzFD , EnFD , EnPC , ForwardASrcE , ForwardBSrcE );
-  input [1:0] ResultSrcE ;
-  input RdM,Rs1E,Rs2E,RdW,RdE,Rs1D,Rs2D,RegWriteM,RegWriteW;
+  input [1:0] ResultSrcE,PCSrc ;
+  input RdM,Rs1E,Rs2E,RdW,RdE,RdD,Rs1D,Rs2D,RegWriteM,RegWriteW;
   output [1:0] ForwardASrcE, ForwardBSrcE;
   output IzDE,IzFD,EnFD,EnPC;
   logic lwStall ;
