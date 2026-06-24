@@ -1,7 +1,7 @@
 module DATA_PATH(
 	PCSrcE, EnPC, IzFD, EnFD,
 	RegWriteW, ImmSrcD, RdD,  InstAdrF, Rs1D, Rs2D, IzDE,
-	ForwardSrcA, ForwardSrcB, AddSrcE, AluSrcE, AluFuncE, InstRDF, RdE, Rs1E, Rs2E, Zer, Lt,
+	ForwardSrcA, ForwardSrcB, AddSrcE, AluSrcE, AluFuncE, InstRDF, RdE, Rs1E, Rs2E, Zer, Lt,Clk
 	RdM, MemAdrM, MemWDM, 
 	MemRDM, ResultSrcW, RdW);
 
