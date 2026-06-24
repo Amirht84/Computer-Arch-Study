@@ -22,9 +22,9 @@ module DATA_PATH(
 	input [31:0] InstRDF, MemRDM;
 	output [31:0] InstAdrF, MemAdrM, MemWDM;
 	output Zer, Lt;
-	
+	wire [31:0] IncOutF, PCSrcOutF, PCOutF ,IncOutD, RD1OutD, RD2OutD, ImmExtOutD, ImmSrcD, PCOutD,AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, AddSrcOutE, AluOutE, InstRDD ,AluOutM, IncOutM, ForwardSrcBOutM, ResultSrcOutW;
+	wire RegWriteW, AluOutW, IncOutW, MemRDW;
 	////////////	Stage: Instruction Fetch	#F	////////////
-	wire [31:0] IncOutF, PCSrcOutF, PCOutF;
 	REG_FULL pc(.D(PCSrcOutF), .Q(PCOutF), .Clk(Clk), .En(EnPC), .Iz(1'b0));
 	MUX_2IN pc_src(.A(IncOutF), .B(AddOutE), .Y(PCSrcOutF), .sel(PCSrcE));
 	INC_4 inc_4(.A(PCSrcOutF), .Y(IncOutF));
@@ -33,7 +33,7 @@ module DATA_PATH(
 	PIPE_LINE_REG #(.RegisterCount(2)) fd_reg (.Qs({PCOutF, IncOutF}), .Ds({PCOutD, IncOutD}), .Iz(IzFD), .En(EnFD), .Clk(Clk));
 
 	////////////	Stage: Instruction Decode	#D	////////////
-	wire [31:0] IncOutD, RD1OutD, RD2OutD, ImmExtOutD, ImmSrcD, PCOutD;
+	
 	assign Rs1D = InstRDD[19:15];
 	assign Rs2D = InstRDD[24:20];
 	assign RdD = InstRDD[11:7];
@@ -72,8 +72,7 @@ module DATA_PATH(
 		.Clk(Clk)
 	);
 	////////////	Stage:		Exectution		#E	////////////
-	wire [31:0] AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, AddSrcOutE, AluOutE, InstRDD;
-
+	
 	MUX_4IN forward_src_a (.A(RD1OutD), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcAOutE), .sel(ForwardSrcA));
 	MUX_4IN forward_src_b (.A(RD2OutD), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcBOutE), .sel(ForwardSrcB));
 
@@ -101,7 +100,6 @@ module DATA_PATH(
 	);
 
 	////////////	Stage:		Memory Access	#M	////////////
-	wire [31:0] AluOutM, IncOutM, ForwardSrcBOutM;
 	
 	assign MemAdrM = AluOutM;
 	assign MemWDM = ForwardSrcBOutM;
@@ -122,8 +120,6 @@ module DATA_PATH(
 	);
 
 	////////////	Stage:		Write Back		#W	////////////
-	wire RegWriteW, AluOutW, IncOutW, MemRDW;
-	wire [31:0] ResultSrcOutW;
 
 	MUX_4IN result_src (.A(AluOutW), .B(MemRDW), .C(IncOutW), .D(32'b0), .sel(ResultSrcW), .Y(ReseultSrcOutW));
 endmodule
