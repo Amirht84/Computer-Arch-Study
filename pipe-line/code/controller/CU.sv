@@ -5,12 +5,10 @@ module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,
 	output PCSrcE, RegWriteW, ALUSrcE, MemWriteM , AddSrcE;
 	output [1:0] ResultSrcW, ImmSrcD;
 	output [2:0] ALUFuncE;
-
-
-	////////////	Stage:		Memory Access	#D	////////////
-	wire RegWriteD, AddSrcD, BranchD, JumpD, MemWriteD, Lt_EqD, NotD;
-	wire [1:0] ALUOpD, ResultSrcD,ALUSrcD;
+	wire RegWriteD, AddSrcD, BranchD, JumpD, MemWriteD, Lt_EqD, NotD ,RegWriteE, BranchE, JumpE, MemWriteE, NotE, Lt_EqE , RegWriteM;
+	wire [1:0]  ResultSrcD,ALUSrcD ,  ResultSrcE ,esultSrcM, ALUOpD;
 	wire [2:0] ALUFuncD;
+	////////////	Stage:		Memory Access	#D	////////////
 
 	MAIN_CNT main_cnt(
 		.Op(OpD),
@@ -58,8 +56,6 @@ module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,
 		.En(1'b1)
 	);
 	////////////	Stage:		Memory Access	#E	////////////
-	wire RegWriteE, BranchE, JumpE, MemWriteE, NotE, Lt_EqE;
-	wire [1:0] ResultSrcE;
 
 	PC_CNT pc_cnt(
 		.Branch(BranchE),
@@ -87,8 +83,7 @@ module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,
 		.En(1'b1)
 	);
 	////////////	Stage:		Memory Access	#M	////////////
-	wire RegWriteM;
-	wire [1:0] ResultSrcM;
+	
 	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(1)) mw_reg_1 (
 		.Ds({RegWriteM}),
 		.Qs({RegWriteW}),
