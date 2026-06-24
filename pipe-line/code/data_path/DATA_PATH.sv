@@ -11,7 +11,7 @@ module DATA_PATH(
 	/////////// Control Signals	///////////
 	input AluSrcE, AddSrcE, ResultSrcW, RegWriteW;
 	input [2:0] AluFuncE;
-	input [1:0] ImmSrcD
+	input [1:0] ImmSrcD ;
 	/////////// Hazard Signals	///////////
 	input [1:0] ForwardSrcA, ForwardSrcB;
 	input IzFD, IzDE, EnFD;
@@ -22,7 +22,7 @@ module DATA_PATH(
 	input [31:0] InstRDF, MemRDM;
 	output [31:0] InstAdrF, MemAdrM, MemWDM;
 	output Zer, Lt;
-	wire [31:0] IncOutF, PCSrcOutF, PCOutF ,IncOutD, RD1OutD, RD2OutD, ImmExtOutD, ImmSrcD, PCOutD,AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, AddSrcOutE, AluOutE, InstRDD ,AluOutM, IncOutM, ForwardSrcBOutM, ResultSrcOutW;
+	wire [31:0] IncOutF, PCSrcOutF, PCOutF ,IncOutD, RD1OutD, RD2OutD, ImmExtOutD, PCOutD,AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, AddSrcOutE, AluOutE, InstRDD ,AluOutM, IncOutM, ForwardSrcBOutM, ResultSrcOutW;
 	wire RegWriteW, AluOutW, IncOutW, MemRDW;
 	////////////	Stage: Instruction Fetch	#F	////////////
 	REG_FULL pc(.D(PCSrcOutF), .Q(PCOutF), .Clk(Clk), .En(EnPC), .Iz(1'b0));
@@ -64,7 +64,7 @@ module DATA_PATH(
 		.En(1'b1),
 		.Clk(Clk)
 	);
-	PIPE_LINE_REG #(.RegisterCount(3), .Weadth(5)) de_reg_5 (
+	PIPE_LINE_REG #(.RegisterCount(3), .Weadth(5)) de_reg_5D (
 		.Ds({RdD, Rs1D, Rs2D}),
 		.Qs({RdE, Rs1E, Rs2E}),
 		.Iz(IzDE),
@@ -83,7 +83,7 @@ module DATA_PATH(
 
 	ALU alu(.A(ForwardSrcAOutE), .B(AluSrcOutE), .Y(AluOutE), .f(AluFuncE), .zer(Zer), .lt(Lt));
 
-	PIPE_LINE_REG #(.RegisterCout(3)) em_reg (
+	PIPE_LINE_REG #(.RegisterCount(3)) em_reg (
 		.Ds({AluOutE, ForwardSrcBOutE, IncOutE}),
 		.Qs({AluOutM, ForwardSrcBOutM, IncOutM}),
 		.Iz(1'b0),
@@ -91,7 +91,7 @@ module DATA_PATH(
 		.Clk(Clk)
 	);
 	
-	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(5)) de_reg_5 (
+	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(5)) de_reg_5E (
 		.Ds({RdE}),
 		.Qs({RdM}),
 		.Iz(1'b0),
@@ -104,14 +104,14 @@ module DATA_PATH(
 	assign MemAdrM = AluOutM;
 	assign MemWDM = ForwardSrcBOutM;
 
-	PIPE_LINE_REG #(.RegisterCount(2)) mw_reg (
+	PIPE_LINE_REG #(.RegisterCount(3)) mw_reg (
 		.Ds({AluOutM, IncOutM, MemRDM}),
 		.Qs({AluOutW, IncOutW, MemRDW}),
 		.Iz(1'b0),
 		.En(1'b1),
 		.Clk(Clk)
 	);
-	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(5)) de_reg_5 (
+	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(5)) de_reg_5M (
 		.Ds({RdM}),
 		.Qs({RdW}),
 		.Iz(1'b0),
@@ -121,5 +121,5 @@ module DATA_PATH(
 
 	////////////	Stage:		Write Back		#W	////////////
 
-	MUX_4IN result_src (.A(AluOutW), .B(MemRDW), .C(IncOutW), .D(32'b0), .sel(ResultSrcW), .Y(ReseultSrcOutW));
+	MUX_4IN result_src (.A(AluOutW), .B(MemRDW), .C(IncOutW), .D(32'b0), .sel(ResultSrcW), .Y(ResultSrcOutW));
 endmodule
