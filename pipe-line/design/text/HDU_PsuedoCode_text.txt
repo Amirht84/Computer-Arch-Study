@@ -1,13 +1,13 @@
 --- Data Hazard
 if(RegWriteM == 1 and RdM == Rs1E and Rs1E != 0 )
-	ForwardAE = 10; // M->E
+	ForwardAE = 01; // M->E
 else if(RegWriteW == 1 and RdW == Rs1E and Rs1E != 0)
-	ForwardAE = 01; // W->E
+	ForwardAE = 10; // W->E
 
 if(RegWriteM == 1 and RdM == Rs2E and Rs2E != 0 )
-	ForwardBE = 10; // M->E
+	ForwardBE = 01; // M->E
 else if(RegWriteW == 1 and RdW == Rs2E and Rs2E != 0)
-	ForwardBE = 01; // W->E
+	ForwardBE = 10; // W->E
 
 --- Data Hazard(lw), detect in E
 if((Rs1D == RdE or Rs2D == RdE) and ResultSrcE == 01 and RdD != 0 and RdE != 0 and PCSrc != 1)
