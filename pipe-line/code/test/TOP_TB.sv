@@ -4,7 +4,7 @@ module TOP_TB();
 	integer CycleCounter = 0;
 	reg clk;
 
-	TOP top(clk);
+	TOP #(.INST_SPACE(20)) top(clk);
 
 	initial clk = 0;
 	always #200 clk = ~clk;
