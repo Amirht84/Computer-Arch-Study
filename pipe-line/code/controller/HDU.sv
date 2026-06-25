@@ -4,7 +4,7 @@ module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , 
   input RegWriteM,RegWriteW;
   input PCSrcE;
   output logic [1:0] ForwardASrcE, ForwardBSrcE;
-  output logic IzDE,IzFD,EnFD,EnPC;
+  output IzDE,IzFD,EnFD,EnPC;
   logic lwStall, CntStall ;
   ////////////////// Data Hazard and forwarding signal assignment /////////////////
      always @(RegWriteM,RegWriteW,RdM,RdW,Rs1E) begin
