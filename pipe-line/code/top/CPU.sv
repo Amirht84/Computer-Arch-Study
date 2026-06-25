@@ -1,6 +1,6 @@
-module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite,Clk);
+module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWriteM, Clk);
 	output [31:0] InstAdr, MemAdr, MemWD;
-	output MemWrite;
+	output MemWriteM;
 	input [31:0] InstRD, MemRD;
 	input Clk;
 	wire [6:0] Func7, Op;

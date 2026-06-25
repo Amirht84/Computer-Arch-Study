@@ -23,7 +23,7 @@ module REG_FILE(Addr1, Addr2, AddrW, WDat, RDat1, RDat2, we, Clk);
 		RegMem[SP_IND] = STACK_START;
 	end
 
-	always @(posedge Clk) begin
+	always @(negedge Clk) begin
 		if (we && AddrW != 0) begin
 			RegMem[AddrW] <= WDat;
 		end

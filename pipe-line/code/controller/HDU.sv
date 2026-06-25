@@ -37,7 +37,7 @@ module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , 
 /////////////////// stalling signal assignment /////////////////////
     assign IzDE = lwStall || CntStall;
     assign IzFD = CntStall;
-    assign EnFd = lwStall;
+    assign EnFD = lwStall;
     assign EnPC = lwStall;
 
 endmodule
