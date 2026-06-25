@@ -10,17 +10,17 @@ module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , 
      always @(RegWriteM,RegWriteW,RdM,RdW,Rs1E) begin
         ForwardASrcE= 2'b0;
         if(RegWriteM == 1'b1 && RdM == Rs1E && Rs1E != 5'b0 )
-	        ForwardASrcE =2'b10; // M->E
+	        ForwardASrcE =2'b01; // M->E
         else if(RegWriteW ==1 && RdW == Rs1E && Rs1E != 5'b0)
-	        ForwardASrcE =2'b01; // W->E
+	        ForwardASrcE =2'b10; // W->E
     end
 
     always@(RegWriteM,RegWriteW,RdM,RdW,Rs2E)begin
         ForwardBSrcE=2'b0;
         if(RegWriteM == 1'b1 && RdM == Rs2E && Rs2E != 5'b0 )
-	        ForwardBSrcE =2'b10; // M->E
+	        ForwardBSrcE =2'b01; // M->E
         else if(RegWriteW == 1'b1 && RdW == Rs2E && Rs2E != 5'b0)
-	        ForwardBSrcE = 2'b01; // W->E
+	        ForwardBSrcE = 2'b10; // W->E
     end
 
 /////////////Data Hazard(lw), detect in E//////////
