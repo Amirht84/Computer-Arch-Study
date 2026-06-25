@@ -9,7 +9,6 @@ module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , 
   ////////////////// Data Hazard and forwarding signal assignment /////////////////
      always @(RegWriteM,RegWriteW,RdM,RdW,Rs1E) begin
         ForwardASrcE= 2'b0;
-        ForwardBSrcE= 2'b0;
         if(RegWriteM == 1'b1 && RdM == Rs1E && Rs1E != 5'b0 )
 	        ForwardASrcE =2'b10; // M->E
         else if(RegWriteW ==1 && RdW == Rs1E && Rs1E != 5'b0)
@@ -17,7 +16,6 @@ module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , 
     end
 
     always@(RegWriteM,RegWriteW,RdM,RdW,Rs2E)begin
-        ForwardASrcE=2'b0;
         ForwardBSrcE=2'b0;
         if(RegWriteM == 1'b1 && RdM == Rs2E && Rs2E != 5'b0 )
 	        ForwardBSrcE =2'b10; // M->E
