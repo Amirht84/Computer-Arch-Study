@@ -1,5 +1,5 @@
 module TOP_TB();
-	parameter cycleCountRoof = 10000;
+	parameter cycleCountRoof = 100000000;
 	integer EndCnt = 0;
 	integer CycleCounter = 0;
 	reg clk;
@@ -13,7 +13,7 @@ module TOP_TB();
 		CycleCounter <= CycleCounter + 1;
 
 		if(top.cpu.data_path.PCOutF >= 32'd64) begin
-			EndCnt <= EndCnt + 1;
+			EndCnt <= 0;
 		end else begin
 			EndCnt <= 0;
 		end
