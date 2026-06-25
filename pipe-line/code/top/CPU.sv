@@ -3,7 +3,7 @@ module CPU(InstAdr, MemAdr, InstRDF, MemRD, MemWD, MemWriteM, Clk);
 	output MemWriteM;
 	input [31:0] InstRDF, MemRD;
 	input Clk;
-	wire [31:0] IsntRDD;
+	wire [31:0] InstRDD;
 	wire [6:0] Func7, Op;
 	wire [2:0] Func3,ALUFuncE;
 	wire PCSrcE,RegWriteW, RegWriteM, ALUSrcE,AddSrcE,zer,lt,EnPC,EnFD,IzDE;
