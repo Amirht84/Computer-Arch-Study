@@ -32,7 +32,7 @@ module DATA_PATH(
 	PIPE_LINE_REG #(.InitValue(Nop)) de_reg_nop (
 		.Ds({InstRDF}),
 		.Qs({InstRDD}),
-		.Iz(IzDE),
+		.Iz(IzFD),
 		.En(1'b0),
 		.Clk(Clk)
 	);
