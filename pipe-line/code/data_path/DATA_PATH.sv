@@ -9,9 +9,9 @@ module DATA_PATH(
 	localparam Nop = 32'b00000000000000000000000000110011;
 
 	/////////// Control Signals	///////////
-	input AluSrcE, AddSrcE, ResultSrcW, RegWriteW;
+	input AluSrcE, AddSrcE, RegWriteW;
 	input [2:0] AluFuncE;
-	input [1:0] ImmSrcD ;
+	input [1:0] ImmSrcD, ResultSrcW ;
 	/////////// Hazard Signals	///////////
 	input [1:0] ForwardSrcA, ForwardSrcB;
 	input IzFD, IzDE, EnFD;
