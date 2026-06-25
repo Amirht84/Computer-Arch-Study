@@ -1,6 +1,6 @@
 module DATA_PATH(
 	PCSrcE, EnPC, IzFD, EnFD,
-	RegWriteW, ImmSrcD, RdD,  InstAdrF, Rs1D, Rs2D, IzDE,
+	RegWriteW, ImmSrcD, RdD,  InstAdrF, Rs1D, Rs2D, InstRDD, IzDE,
 	ForwardSrcA, ForwardSrcB, AddSrcE, AluSrcE, AluFuncE, InstRDF, RdE, Rs1E, Rs2E, Zer, Lt,Clk,
 	RdM, MemAdrM, MemWDM, 
 	MemRDM, ResultSrcW, RdW);
@@ -20,9 +20,9 @@ module DATA_PATH(
 	output [4:0] RdD, Rs1D, Rs2D, RdE, Rs1E, Rs2E, RdM, RdW;
 
 	input [31:0] InstRDF, MemRDM;
-	output [31:0] InstAdrF, MemAdrM, MemWDM;
+	output [31:0] InstAdrF, MemAdrM, MemWDM, InstRDD;
 	output Zer, Lt;
-	wire [31:0] IncOutF, PCSrcOutF, PCOutF ,IncOutD, RD1OutD, RD2OutD, ImmExtOutD, PCOutD,AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, RD2OutE, AddSrcOutE, AluOutE, PCOutE, IncOutE, InstRDD ,AluOutM, IncOutM, ForwardSrcBOutM, ResultSrcOutW;
+	wire [31:0] IncOutF, PCSrcOutF, PCOutF ,IncOutD, RD1OutD, RD2OutD, ImmExtOutD, PCOutD,AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, RD2OutE, AddSrcOutE, AluOutE, PCOutE, IncOutE ,AluOutM, IncOutM, ForwardSrcBOutM, ResultSrcOutW;
 	wire [31:0] AluOutW, IncOutW, MemRDW;
 	////////////	Stage: Instruction Fetch	#F	////////////
 	REG_FULL pc(.D(PCSrcOutF), .Q(PCOutF), .Clk(Clk), .En(EnPC), .Iz(1'b0));
