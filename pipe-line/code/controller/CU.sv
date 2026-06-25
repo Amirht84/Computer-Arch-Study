@@ -48,7 +48,7 @@ module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,
 		.En(1'b1)
 	);
 
-	PIPE_LINE_REG #(.RegisterCount(8), .Weadth(3)) de_reg_3(
+	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(3)) de_reg_3(
 		.Ds({ALUFuncD}),
 		.Qs({ALUFuncE}),
 		.Clk(Clk),
