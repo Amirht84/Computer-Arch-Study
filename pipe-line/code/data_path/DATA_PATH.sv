@@ -29,7 +29,13 @@ module DATA_PATH(
 	MUX_2IN pc_src(.A(IncOutF), .B(AddOutE), .Y(PCSrcOutF), .sel(PCSrcE));
 	INC_4 inc_4(.A(PCOutF), .Y(IncOutF));
 	assign InstAdrF = PCOutF;
-
+	PIPE_LINE_REG #(.InitValue(Nop)) de_reg_nop (
+		.Ds({InstRDF}),
+		.Qs({InstRDD}),
+		.Iz(IzDE),
+		.En(1'b0),
+		.Clk(Clk)
+	);
 	PIPE_LINE_REG #(.RegisterCount(2)) fd_reg (.Ds({PCOutF, IncOutF}), .Qs({PCOutD, IncOutD}), .Iz(IzFD), .En(EnFD), .Clk(Clk));
 
 	////////////	Stage: Instruction Decode	#D	////////////
@@ -54,21 +60,14 @@ module DATA_PATH(
 		.Ds({RD1OutD, RD2OutD, PCOutD, ImmExtOutD, IncOutD}),
 		.Qs({RD1OutE, RD2OutE, PCOutE, ImmExtOutE, IncOutE}),
 		.Iz(IzDE),
-		.En(1'b1),
+		.En(1'b0),
 		.Clk(Clk)
 	);
-	PIPE_LINE_REG #(.InitValue(Nop)) de_reg_nop (
-		.Ds({InstRDF}),
-		.Qs({InstRDD}),
-		.Iz(IzDE),
-		.En(1'b1),
-		.Clk(Clk)
-	);
-	PIPE_LINE_REG #(.RegisterCount(3), .Weadth(5)) de_reg_5D (
+	PIPE_LINE_REG #(.RegisterCount(3), .Weadth(5)) de_reg_5 (
 		.Ds({RdD, Rs1D, Rs2D}),
 		.Qs({RdE, Rs1E, Rs2E}),
 		.Iz(IzDE),
-		.En(1'b1),
+		.En(1'b0),
 		.Clk(Clk)
 	);
 	////////////	Stage:		Exectution		#E	////////////
@@ -87,15 +86,15 @@ module DATA_PATH(
 		.Ds({AluOutE, ForwardSrcBOutE, IncOutE}),
 		.Qs({AluOutM, ForwardSrcBOutM, IncOutM}),
 		.Iz(1'b0),
-		.En(1'b1),
+		.En(1'b0),
 		.Clk(Clk)
 	);
 	
-	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(5)) de_reg_5E (
+	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(5)) em_reg_5 (
 		.Ds({RdE}),
 		.Qs({RdM}),
 		.Iz(1'b0),
-		.En(1'b1),
+		.En(1'b0),
 		.Clk(Clk)
 	);
 
@@ -108,14 +107,14 @@ module DATA_PATH(
 		.Ds({AluOutM, IncOutM, MemRDM}),
 		.Qs({AluOutW, IncOutW, MemRDW}),
 		.Iz(1'b0),
-		.En(1'b1),
+		.En(1'b0),
 		.Clk(Clk)
 	);
-	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(5)) de_reg_5M (
+	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(5)) mw_reg_5 (
 		.Ds({RdM}),
 		.Qs({RdW}),
 		.Iz(1'b0),
-		.En(1'b1),
+		.En(1'b0),
 		.Clk(Clk)
 	);
 
