@@ -1,6 +1,6 @@
 module PIPE_LINE_REG #(parameter RegisterCount = 1, parameter InitValue = 32'b0, parameter Weadth = 32)(Qs, Ds, Iz, En, Clk);
-    input [31:0] Ds [0:RegisterCount - 1];
-    output [31:0] Qs [0:RegisterCount - 1];
+    input [Weadth - 1:0] Ds [0:RegisterCount - 1];
+    output [Weadth - 1:0] Qs [0:RegisterCount - 1];
     input Iz, En, Clk;
 
     genvar i;
