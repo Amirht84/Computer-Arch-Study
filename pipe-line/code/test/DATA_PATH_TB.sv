@@ -2,9 +2,9 @@ module DATA_PATH_TB();
 	
 	reg IsBranch;
 
-	reg PCSrc, WSrc, ALUSrc, AddSrc, ResultSrc, MemWrite, RegWrite, Clk;
+	reg PCSrc, WSrc, ALUSrc, AddSrc, MemWrite, RegWrite, Clk;
 	reg [2:0] ALUFunc;
-	reg [1:0] ImmSrc;
+	reg [1:0] ImmSrc, ResultSrc;
 	wire [31:0] InstOut;
 	wire [31:0] InstAdr, MemAdr, InstRD, MemRD, MemWD;
   	wire zer,lt;
