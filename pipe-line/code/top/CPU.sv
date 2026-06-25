@@ -56,7 +56,8 @@ module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite,Clk);
 		.MemWDM(MemWD), 
 		.MemRDM(MemRD),
 		.ResultSrcW(ResultSrcW),
-		.RdW(RdW)
+		.RdW(RdW),
+		.Clk(Clk)
 		);
 	HDU hdu(
 		.RegWriteM(RegWriteM),
