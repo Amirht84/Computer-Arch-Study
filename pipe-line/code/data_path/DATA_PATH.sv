@@ -22,7 +22,7 @@ module DATA_PATH(
 	input [31:0] InstRDF, MemRDM;
 	output [31:0] InstAdrF, MemAdrM, MemWDM;
 	output Zer, Lt;
-	wire [31:0] IncOutF, PCSrcOutF, PCOutF ,IncOutD, RD1OutD, RD2OutD, ImmExtOutD, PCOutD,AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, AddSrcOutE, AluOutE, InstRDD ,AluOutM, IncOutM, ForwardSrcBOutM, ResultSrcOutW;
+	wire [31:0] IncOutF, PCSrcOutF, PCOutF ,IncOutD, RD1OutD, RD2OutD, ImmExtOutD, PCOutD,AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, RD2OutE, AddSrcOutE, AluOutE, PCOutE, IncOutE, InstRDD ,AluOutM, IncOutM, ForwardSrcBOutM, ResultSrcOutW;
 	wire RegWriteW, AluOutW, IncOutW, MemRDW;
 	////////////	Stage: Instruction Fetch	#F	////////////
 	REG_FULL pc(.D(PCSrcOutF), .Q(PCOutF), .Clk(Clk), .En(EnPC), .Iz(1'b0));
@@ -73,8 +73,8 @@ module DATA_PATH(
 	);
 	////////////	Stage:		Exectution		#E	////////////
 	
-	MUX_4IN forward_src_a (.A(RD1OutD), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcAOutE), .sel(ForwardSrcA));
-	MUX_4IN forward_src_b (.A(RD2OutD), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcBOutE), .sel(ForwardSrcB));
+	MUX_4IN forward_src_a (.A(RD1OutE), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcAOutE), .sel(ForwardSrcA));
+	MUX_4IN forward_src_b (.A(RD2OutE), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcBOutE), .sel(ForwardSrcB));
 
 	MUX_2IN alu_src(.A(ForwardSrcBOutE), .B(ImmExtOutE), .Y(AluSrcOutE), .sel(AluSrcE));
 	MUX_2IN add_src(.A(PCOutE), .B(RD1OutE), .Y(AddSrcOutE), .sel(AddSrcE));
