@@ -4,7 +4,7 @@ module TOP_TB();
 	integer CycleCounter = 0;
 	reg clk;
 
-	TOP #(.MEM_SPACE(30)) our_top(clk);
+	TOP #(.MEM_SPACE(30)) top(clk);
 
 	initial clk = 0;
 	always #200 clk = ~clk;
@@ -12,7 +12,7 @@ module TOP_TB();
 	always @(posedge clk) begin
 		CycleCounter <= CycleCounter + 1;
 
-		if(our_top.cpu.data_path.OldPCOut >= 32'd64) begin
+		if(top.cpu.data_path.PCOutF >= 32'd64) begin
 			EndCnt <= EndCnt + 1;
 		end else begin
 			EndCnt <= 0;

@@ -11,7 +11,7 @@ module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite,Clk);
 	assign Func7= InstRD[31:25];
 	assign Func3= InstRD[14:12];
 	assign Op= InstRD[6:0];
-	CU CCU(
+	CU cu(
 		.PCSrcE(PCSrcE),
 		.RegWriteW(RegWriteW),
 		.ImmSrcD(ImmSrcD),
@@ -25,9 +25,10 @@ module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWrite,Clk);
 		.Op(Op),
 		.zer(zer),
 		.lt(lt),
-		.IzDE(IzDE)
+		.IzDE(IzDE),
+		.Clk(Clk)
 	);
-	DATA_PATH DP(
+	DATA_PATH data_path(
 		.PCSrcE(PCSrcE),
 		.EnPC(EnPC),
 		.IzFD(IzFD),

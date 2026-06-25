@@ -5,12 +5,11 @@ module PIPE_LINE_REG #(parameter RegisterCount = 1, parameter InitValue = 32'b0,
 
     genvar i;
     generate
-        for(i = 0 ; i < RegisterCount ; i = i + 1)
-        begin : REGS
+        for(i = 0 ; i < RegisterCount ; i = i + 1) begin : registers
 
-        REG_FULL #(.InitValue(InitValue), .Weadth(Weadth))(
+        REG_FULL #(.InitValue(InitValue), .Weadth(Weadth)) reg_full (
             .Clk(Clk),
-            .rst(rst),
+            .En(En),
             .Iz(Iz),
             .D  (Ds[i]),
             .Q  (Qs[i])

@@ -1,5 +1,5 @@
-module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,AddSrcE , Func3, Func7, OpD, zer, lt, IzDE , Clk);
-	input [6:0] Func7,OpD;
+module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,AddSrcE , Func3, Func7, Op, zer, lt, IzDE , Clk);
+	input [6:0] Func7,Op;
 	input [2:0] Func3;
 	input zer,lt, IzDE , Clk;
 	output PCSrcE, RegWriteW, ALUSrcE, MemWriteM , AddSrcE;
@@ -11,7 +11,7 @@ module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,
 	////////////	Stage:		Memory Access	#D	////////////
 
 	MAIN_CNT main_cnt(
-		.Op(OpD),
+		.Op(Op),
 		.ALUOp(ALUOpD),
 		.RegWrite(RegWriteD),
 		.ALUSrc(ALUSrcD), 
