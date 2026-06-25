@@ -23,13 +23,13 @@ module MAIN_CNT(Op, ALUOp, RegWrite, ALUSrc, Branch, Jump, MemWrite, ResultSrc, 
 		case(Op)
 			rt:	OutPut =		{2'b10 , 1'b1 , 1'b0 , 1'b0 , 1'b0 , 1'b0 , 2'b0  , _2bdd , _1bd };
 			
-			bt:	OutPut =		{2'b01 , 1'b0 , 1'b0 , 1'b1 , 1'b0 , 1'b0 , _2bd , 2'b10 , 1'b0 };
+			bt:	OutPut =		{2'b01 , 1'b0 , 1'b0 , 1'b1 , 1'b0 , 1'b0 , _2bdd , 2'b10 , 1'b0 };
 
 			it:	OutPut =		{2'b11 , 1'b1 , 1'b1 , 1'b0 , 1'b0 , 1'b0 , 2'b0 , 2'b00 , _1bd };
 
 			lw:	OutPut =		{2'b00 , 1'b1 , 1'b1 , 1'b0 , 1'b0 , 1'b0 , 2'b01 , 2'b00 , _1bd };
 
-			sw:	OutPut =		{2'b00 , 1'b0 , 1'b1 , 1'b0 , 1'b0 , 1'b1 , _2bd ,2'b01 , _1bd };
+			sw:	OutPut =		{2'b00 , 1'b0 , 1'b1 , 1'b0 , 1'b0 , 1'b1 , _2bdd ,2'b01 , _1bd };
 
 			jal:	OutPut =		{_2bdd , 1'b1 , _1bd , _1bd , 1'b1 , 1'b0 , 2'b10 , 2'b11 , 1'b0 };
 
