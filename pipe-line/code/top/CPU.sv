@@ -1,16 +1,17 @@
-module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWriteM, Clk);
+module CPU(InstAdr, MemAdr, InstRDF, MemRD, MemWD, MemWriteM, Clk);
 	output [31:0] InstAdr, MemAdr, MemWD;
 	output MemWriteM;
-	input [31:0] InstRD, MemRD;
+	input [31:0] InstRDF, MemRD;
 	input Clk;
+	wire [31:0] IsntRDD;
 	wire [6:0] Func7, Op;
 	wire [2:0] Func3,ALUFuncE;
 	wire PCSrcE,RegWriteW, RegWriteM, ALUSrcE,AddSrcE,zer,lt,EnPC,EnFD,IzDE;
 	wire [1:0] ImmSrcD,ForwardSrcA, ResultSrcW, ForwardSrcB, ResultSrcE;
 	wire [4:0] RdD,Rs1D,Rs2D,Rs1E,Rs2E,RdE,RdM,RdW;
-	assign Func7= InstRD[31:25];
-	assign Func3= InstRD[14:12];
-	assign Op= InstRD[6:0];
+	assign Func7= InstRDD[31:25];
+	assign Func3= InstRDD[14:12];
+	assign Op= InstRDD[6:0];
 	CU cu(
 		.PCSrcE(PCSrcE),
 		.RegWriteM(RegWriteM),
@@ -46,7 +47,8 @@ module CPU(InstAdr, MemAdr, InstRD, MemRD, MemWD, MemWriteM, Clk);
 		.AddSrcE(AddSrcE),
 		.AluSrcE(ALUSrcE),
 		.AluFuncE(ALUFuncE),
-		.InstRDF(InstRD),
+		.InstRDF(InstRDF),
+		.InstRDD(InstRDD),
 		.RdE(RdE),
 		.Rs1E(Rs1E),
 		.Rs2E(Rs2E),
