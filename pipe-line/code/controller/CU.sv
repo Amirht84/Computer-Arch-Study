@@ -37,7 +37,7 @@ module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,R
 		.Qs({RegWriteE, AddSrcE, ALUSrcE, BranchE, JumpE, MemWriteE, NotE, Lt_EqE}),
 		.Clk(Clk),
 		.Iz(IzDE),
-		.En(1'b1)
+		.En(1'b0)
 	);
 	
 	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(2)) de_reg_2(
@@ -45,7 +45,7 @@ module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,R
 		.Qs({ResultSrcE}),
 		.Clk(Clk),
 		.Iz(IzDE),
-		.En(1'b1)
+		.En(1'b0)
 	);
 
 	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(3)) de_reg_3(
@@ -53,7 +53,7 @@ module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,R
 		.Qs({ALUFuncE}),
 		.Clk(Clk),
 		.Iz(IzDE),
-		.En(1'b1)
+		.En(1'b0)
 	);
 	////////////	Stage:		Memory Access	#E	////////////
 
@@ -72,7 +72,7 @@ module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,R
 		.Qs({RegWriteM, MemWriteM}),
 		.Clk(Clk),
 		.Iz(1'b0),
-		.En(1'b1)
+		.En(1'b0)
 	);
 	
 	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(2)) em_reg_2(
@@ -80,7 +80,7 @@ module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,R
 		.Qs({ResultSrcM}),
 		.Clk(Clk),
 		.Iz(1'b0),
-		.En(1'b1)
+		.En(1'b0)
 	);
 	////////////	Stage:		Memory Access	#M	////////////
 	
@@ -89,14 +89,14 @@ module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,R
 		.Qs({RegWriteW}),
 		.Clk(Clk),
 		.Iz(1'b0),
-		.En(1'b1)
+		.En(1'b0)
 	);
 	PIPE_LINE_REG #(.RegisterCount(1), .Weadth(2)) mw_reg_2 (
 		.Ds({ResultSrcM}),
 		.Qs({ResultSrcW}),
 		.Clk(Clk),
 		.Iz(1'b0),
-		.En(1'b1)
+		.En(1'b0)
 	);
 	////////////	Stage:		Memory Access	#W	////////////
 
