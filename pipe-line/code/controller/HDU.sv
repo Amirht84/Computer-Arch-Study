@@ -6,7 +6,7 @@ module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , 
   output logic [1:0] ForwardASrcE, ForwardBSrcE;
   output logic IzDE,IzFD,EnFD,EnPC;
   logic lwStall, CntStall ;
-  //////////////////Data Hazard/////////////////
+  ////////////////// Data Hazard and forwarding signal assignment /////////////////
      always @(RegWriteM,RegWriteW,RdM,RdW,Rs1E) begin
         ForwardASrcE= 2'b0;
         ForwardBSrcE= 2'b0;
@@ -32,25 +32,12 @@ module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , 
 	        lwStall = 1'b1;
     end
 //////////// Control Hazard, detect in E/////////////
-    
     assign   CntStall = PCSrcE;
 
-/////////////////// lwStall/////////////////////
-    always@(IzDE,EnFD,EnPC)begin
-        if(lwStall) begin
-	        IzDE = 1'b1;
-	        EnFD = 1'b1; //Deactive
-	        EnPC = 1'b1; //Deactive
-        end
-    end
+/////////////////// stalling signal assignment /////////////////////
+    assign IzDE = lwStall || CntStall;
+    assign IzFD = CntStall;
+    assign EnFd = lwStall;
+    assign EnPC = lwStall;
 
-////////////////// CntStall/////////////////////
-    always@(IzDE,IzFD)begin
-        if(CntStall)
-            if(lwStall) begin
-	            IzFD = 1'b1;
-	            IzDE = 1'b1;
-            end
-    end
-    
 endmodule
