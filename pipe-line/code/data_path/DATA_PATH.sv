@@ -27,10 +27,10 @@ module DATA_PATH(
 	////////////	Stage: Instruction Fetch	#F	////////////
 	REG_FULL pc(.D(PCSrcOutF), .Q(PCOutF), .Clk(Clk), .En(EnPC), .Iz(1'b0));
 	MUX_2IN pc_src(.A(IncOutF), .B(AddOutE), .Y(PCSrcOutF), .sel(PCSrcE));
-	INC_4 inc_4(.A(PCSrcOutF), .Y(IncOutF));
-	assign InstAdrF = PCSrcOutF;
+	INC_4 inc_4(.A(PCOutF), .Y(IncOutF));
+	assign InstAdrF = PCOutF;
 
-	PIPE_LINE_REG #(.RegisterCount(2)) fd_reg (.Qs({PCOutF, IncOutF}), .Ds({PCOutD, IncOutD}), .Iz(IzFD), .En(EnFD), .Clk(Clk));
+	PIPE_LINE_REG #(.RegisterCount(2)) fd_reg (.Ds({PCOutF, IncOutF}), .Qs({PCOutD, IncOutD}), .Iz(IzFD), .En(EnFD), .Clk(Clk));
 
 	////////////	Stage: Instruction Decode	#D	////////////
 	
