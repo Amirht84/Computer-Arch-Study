@@ -4,7 +4,7 @@ module TOP_TB();
 	integer CycleCounter = 0;
 	reg clk;
 
-	TOP #(.MEM_SPACE(30)) top(clk);
+	TOP top(clk);
 
 	initial clk = 0;
 	always #200 clk = ~clk;
