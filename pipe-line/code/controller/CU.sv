@@ -5,8 +5,8 @@ module CU(PCSrcE ,RegWriteW ,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,
 	output PCSrcE, RegWriteW, ALUSrcE, MemWriteM , AddSrcE;
 	output [1:0] ResultSrcW, ImmSrcD;
 	output [2:0] ALUFuncE;
-	wire RegWriteD, AddSrcD, BranchD, JumpD, MemWriteD, Lt_EqD, NotD ,RegWriteE, BranchE, JumpE, MemWriteE, NotE, Lt_EqE , RegWriteM;
-	wire [1:0]  ResultSrcD,ALUSrcD ,  ResultSrcE ,esultSrcM, ALUOpD;
+	wire RegWriteD, AddSrcD, BranchD, JumpD, MemWriteD, Lt_EqD, NotD ,RegWriteE, BranchE, JumpE, MemWriteE, NotE, Lt_EqE , RegWriteM,ALUSrcD;
+	wire [1:0]  ResultSrcD ,  ResultSrcE ,esultSrcM, ALUOpD;
 	wire [2:0] ALUFuncD;
 	////////////	Stage:		Memory Access	#D	////////////
 
