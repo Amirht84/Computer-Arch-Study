@@ -8,7 +8,7 @@ module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,R
 	wire RegWriteD, AddSrcD, BranchD, JumpD, MemWriteD, Lt_EqD, NotD ,RegWriteE, BranchE, JumpE, MemWriteE, NotE, Lt_EqE ,ALUSrcD;
 	wire [1:0]  ResultSrcD ,  ResultSrcE ,ResultSrcM, ALUOpD;
 	wire [2:0] ALUFuncD;
-	////////////	Stage:		Memory Access	#D	////////////
+	////////////	Stage:		Instrucion Decode	#D	////////////
 
 	MAIN_CNT main_cnt(
 		.Op(Op),
@@ -55,7 +55,7 @@ module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,R
 		.Iz(IzDE),
 		.En(1'b0)
 	);
-	////////////	Stage:		Memory Access	#E	////////////
+	////////////	Stage:		Execution	#E	////////////
 
 	PC_CNT pc_cnt(
 		.Branch(BranchE),
@@ -98,6 +98,4 @@ module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,R
 		.Iz(1'b0),
 		.En(1'b0)
 	);
-	////////////	Stage:		Memory Access	#W	////////////
-
 endmodule
