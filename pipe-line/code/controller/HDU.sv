@@ -28,7 +28,7 @@ module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , 
 /////////////Data Hazard(lw), detect in E//////////
     always@(Rs1D,RdE,RdD,Rs2D,ResultSrcE,PCSrcE) begin
         lwStall = 1'b0;
-        if(Rs1D == RdE || Rs2D == RdE && ResultSrcE == 2'b01 && RdD != 1'b0 && RdE != 1'b0 && PCSrcE != 1'b1)
+        if((Rs1D == RdE || Rs2D == RdE) && ResultSrcE == 2'b01 && RdD != 1'b0 && RdE != 1'b0 && PCSrcE != 1'b1)
 	        lwStall = 1'b1;
     end
 //////////// Control Hazard, detect in E/////////////
