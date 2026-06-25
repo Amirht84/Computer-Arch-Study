@@ -23,7 +23,7 @@ module DATA_PATH(
 	output [31:0] InstAdrF, MemAdrM, MemWDM;
 	output Zer, Lt;
 	wire [31:0] IncOutF, PCSrcOutF, PCOutF ,IncOutD, RD1OutD, RD2OutD, ImmExtOutD, PCOutD,AddOutE, ForwardSrcAOutE, ForwardSrcBOutE, ImmExtOutE, AluSrcOutE, RD1OutE, RD2OutE, AddSrcOutE, AluOutE, PCOutE, IncOutE, InstRDD ,AluOutM, IncOutM, ForwardSrcBOutM, ResultSrcOutW;
-	wire RegWriteW, AluOutW, IncOutW, MemRDW;
+	wire [31:0] AluOutW, IncOutW, MemRDW;
 	////////////	Stage: Instruction Fetch	#F	////////////
 	REG_FULL pc(.D(PCSrcOutF), .Q(PCOutF), .Clk(Clk), .En(EnPC), .Iz(1'b0));
 	MUX_2IN pc_src(.A(IncOutF), .B(AddOutE), .Y(PCSrcOutF), .sel(PCSrcE));
