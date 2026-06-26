@@ -8,7 +8,7 @@ module CPU(InstAdr, MemAdr, InstRDF, MemRD, MemWD, MemWriteM, Clk);
 	wire [2:0] Func3,ALUFuncE;
 	wire PCSrcE,RegWriteW, RegWriteM, ALUSrcE,AddSrcE,zer,lt,EnPC,EnFD,IzDE;
 	wire [1:0] ImmSrcD,ForwardSrcA, ResultSrcW, ForwardSrcB, ResultSrcE;
-	wire [4:0] RdD,Rs1D,Rs2D,Rs1E,Rs2E,RdE,RdM,RdW;
+	wire [4:0] Rs1D,Rs2D,Rs1E,Rs2E,RdE,RdM,RdW;
 	assign Func7= InstRDD[31:25];
 	assign Func3= InstRDD[14:12];
 	assign Op= InstRDD[6:0];
@@ -38,7 +38,6 @@ module CPU(InstAdr, MemAdr, InstRDF, MemRD, MemWD, MemWriteM, Clk);
 		.EnFD(EnFD),
 		.RegWriteW(RegWriteW),
 		.ImmSrcD(ImmSrcD),
-		.RdD(RdD),
 		.InstAdrF(InstAdr),
 		.Rs1D(Rs1D),
 		.Rs2D(Rs2D),
@@ -66,7 +65,6 @@ module CPU(InstAdr, MemAdr, InstRDF, MemRD, MemWD, MemWriteM, Clk);
 	HDU hdu(
 		.RegWriteM(RegWriteM),
 	 	.RdM(RdM),
-		.RdD(RdD),
 		.Rs1E(Rs1E),
 		.Rs2E(Rs2E),
 		.ResultSrcE(ResultSrcE),
