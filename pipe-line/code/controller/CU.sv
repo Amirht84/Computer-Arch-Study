@@ -1,12 +1,12 @@
-module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,MemWriteM ,ResultSrcW ,AddSrcE , Func3, Func7, Op, zer, lt, IzDE , Clk);
+module CU(PCSrcE ,RegWriteW , RegWriteM,ImmSrcD ,ALUSrcE ,ALUFuncE ,ResultSrcE ,MemWriteM ,ResultSrcW ,AddSrcE , Func3, Func7, Op, zer, lt, IzDE , Clk);
 	input [6:0] Func7,Op;
 	input [2:0] Func3;
 	input zer,lt, IzDE , Clk;
 	output PCSrcE, RegWriteW, ALUSrcE, RegWriteM, MemWriteM , AddSrcE;
-	output [1:0] ResultSrcW, ImmSrcD;
+	output [1:0] ResultSrcE ,ResultSrcW, ImmSrcD;
 	output [2:0] ALUFuncE;
 	wire RegWriteD, AddSrcD, BranchD, JumpD, MemWriteD, Lt_EqD, NotD ,RegWriteE, BranchE, JumpE, MemWriteE, NotE, Lt_EqE ,ALUSrcD;
-	wire [1:0]  ResultSrcD ,  ResultSrcE ,ResultSrcM, ALUOpD;
+	wire [1:0]  ResultSrcD ,ResultSrcM ,ALUOpD;
 	wire [2:0] ALUFuncD;
 	////////////	Stage:		Instrucion Decode	#D	////////////
 

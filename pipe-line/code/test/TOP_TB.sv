@@ -1,5 +1,5 @@
 module TOP_TB();
-	parameter cycleCountRoof = 10000;
+	parameter cycleCountRoof = 100000;
 	integer EndCnt = 0;
 	integer CycleCounter = 0;
 	reg clk;
@@ -13,12 +13,12 @@ module TOP_TB();
 		CycleCounter <= CycleCounter + 1;
 
 		if(top.cpu.data_path.PCOutF >= 32'd64) begin
-			EndCnt <= 0;
+			EndCnt <= EndCnt + 1;
 		end else begin
 			EndCnt <= 0;
 		end
 
-		if(EndCnt >= 6) begin
+		if(EndCnt >= 20) begin
 			$display("End of the program Reached!");
 			$stop;
 		end

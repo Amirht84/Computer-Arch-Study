@@ -20,6 +20,7 @@ module CPU(InstAdr, MemAdr, InstRDF, MemRD, MemWD, MemWriteM, Clk);
 		.ALUSrcE(ALUSrcE),
 		.ALUFuncE(ALUFuncE),
 		.MemWriteM(MemWriteM),
+		.ResultSrcE(ResultSrcE),
 		.ResultSrcW(ResultSrcW),
 		.AddSrcE(AddSrcE),
 		.Func3(Func3),

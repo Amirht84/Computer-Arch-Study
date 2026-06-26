@@ -1,6 +1,6 @@
-module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , RdE , Rs1D , Rs2D , PCSrcE , IzDE , IzFD , EnFD , EnPC , ForwardASrcE , ForwardBSrcE );
+module HDU (RegWriteM, RdM , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , RdE , Rs1D , Rs2D , PCSrcE , IzDE , IzFD , EnFD , EnPC , ForwardASrcE , ForwardBSrcE );
   input [1:0] ResultSrcE ;
-  input [4:0] RdM,Rs1E,Rs2E,RdW,RdE,RdD,Rs1D,Rs2D;
+  input [4:0] RdM,Rs1E,Rs2E,RdW,RdE,Rs1D,Rs2D;
   input RegWriteM,RegWriteW;
   input PCSrcE;
   output logic [1:0] ForwardASrcE, ForwardBSrcE;
@@ -24,9 +24,9 @@ module HDU (RegWriteM, RdM, RdD , Rs1E , Rs2E , ResultSrcE , RdW , RegWriteW  , 
     end
 
 /////////////Data Hazard(lw), detect in E//////////
-    always@(Rs1D,RdE,RdD,Rs2D,ResultSrcE,PCSrcE) begin
+    always@(Rs1D,RdE,Rs2D,ResultSrcE,PCSrcE) begin
         lwStall = 1'b0;
-        if((Rs1D == RdE || Rs2D == RdE) && ResultSrcE == 2'b01 && RdD != 5'b0 && RdE != 5'b0 && PCSrcE != 1'b1)
+        if((Rs1D == RdE || Rs2D == RdE) && ResultSrcE == 2'b01 && RdE != 5'b0 && PCSrcE != 1'b1)
 	        lwStall = 1'b1;
     end
 //////////// Control Hazard, detect in E/////////////
