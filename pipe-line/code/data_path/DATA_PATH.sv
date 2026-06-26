@@ -1,6 +1,6 @@
 module DATA_PATH(
 	PCSrcE, EnPC, IzFD, EnFD,
-	RegWriteW, ImmSrcD, RdD,  InstAdrF, Rs1D, Rs2D, InstRDD, IzDE,
+	RegWriteW, ImmSrcD, InstAdrF, Rs1D, Rs2D, InstRDD, IzDE,
 	ForwardSrcA, ForwardSrcB, AddSrcE, AluSrcE, AluFuncE, InstRDF, RdE, Rs1E, Rs2E, Zer, Lt,Clk,
 	RdM, MemAdrM, MemWDM, 
 	MemRDM, ResultSrcW, RdW);
@@ -17,8 +17,9 @@ module DATA_PATH(
 	input IzFD, IzDE, EnFD;
 	input Clk;
 	input PCSrcE, EnPC;
-	output [4:0] RdD, Rs1D, Rs2D, RdE, Rs1E, Rs2E, RdM, RdW;
-
+	output [4:0] Rs1D, Rs2D, RdE, Rs1E, Rs2E, RdM, RdW;
+	wire [4:0] RdD;
+	
 	input [31:0] InstRDF, MemRDM;
 	output [31:0] InstAdrF, MemAdrM, MemWDM, InstRDD;
 	output Zer, Lt;
