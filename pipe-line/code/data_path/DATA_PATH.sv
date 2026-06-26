@@ -19,7 +19,7 @@ module DATA_PATH(
 	input PCSrcE, EnPC;
 	output [4:0] Rs1D, Rs2D, RdE, Rs1E, Rs2E, RdM, RdW;
 	wire [4:0] RdD;
-	
+
 	input [31:0] InstRDF, MemRDM;
 	output [31:0] InstAdrF, MemAdrM, MemWDM, InstRDD;
 	output Zer, Lt;
@@ -34,7 +34,7 @@ module DATA_PATH(
 		.Ds({InstRDF}),
 		.Qs({InstRDD}),
 		.Iz(IzFD),
-		.En(1'b0),
+		.En(EnFD),
 		.Clk(Clk)
 	);
 	PIPE_LINE_REG #(.RegisterCount(2)) fd_reg (.Ds({PCOutF, IncOutF}), .Qs({PCOutD, IncOutD}), .Iz(IzFD), .En(EnFD), .Clk(Clk));
@@ -77,7 +77,7 @@ module DATA_PATH(
 	MUX_4IN forward_src_b (.A(RD2OutE), .B(AluOutM), .C(ResultSrcOutW), .D(32'b0), .Y(ForwardSrcBOutE), .sel(ForwardSrcB));
 
 	MUX_2IN alu_src(.A(ForwardSrcBOutE), .B(ImmExtOutE), .Y(AluSrcOutE), .sel(AluSrcE));
-	MUX_2IN add_src(.A(PCOutE), .B(RD1OutE), .Y(AddSrcOutE), .sel(AddSrcE));
+	MUX_2IN add_src(.A(PCOutE), .B(ForwardSrcAOutE), .Y(AddSrcOutE), .sel(AddSrcE));
 
 	ADDER adder(.A(AddSrcOutE), .B(ImmExtOutE), .Y(AddOutE));
 
