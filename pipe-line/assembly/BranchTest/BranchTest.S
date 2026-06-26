@@ -8,5 +8,5 @@ addi x1, zero, 0
 addi x2, zero, 1
 jal zero, -24
 addi x6, zero, 1000
-jal, zero, 0
+jal zero, 0
 addi x7, zero, 1000
