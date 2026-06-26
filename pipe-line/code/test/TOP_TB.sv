@@ -1,5 +1,5 @@
 module TOP_TB();
-	parameter cycleCountRoof = 100000;
+	parameter cycleCountRoof = 10000000;
 	integer EndCnt = 0;
 	integer CycleCounter = 0;
 	reg clk;
